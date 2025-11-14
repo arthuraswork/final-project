@@ -7,3 +7,7 @@ class Menu:
     def event_loop(self):
         while True:
             self.user_case.user_request()
+            
+            
+if __name__ == '__main__':
+    Menu().event_loop()

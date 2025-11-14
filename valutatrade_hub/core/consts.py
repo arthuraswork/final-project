@@ -19,5 +19,7 @@ class TokenArgs(Enum):
     TO       = '--to'
     BASE     = '--base'
     
+VALUTAS = ['USD','EUR','BTC','ETH','RUB']
+    
 SALT = 'ryan-gosling'
 
