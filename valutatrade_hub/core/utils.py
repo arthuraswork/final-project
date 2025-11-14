@@ -1,24 +1,46 @@
 from dataclasses import dataclass
-import json
+import json      
+from decorators import handler_errors
 
 @dataclass
-class WalkerJSON:
-    dir_path: str = './data/'
-    portfolios: str = 'portfolios.json'
-    rates: str = 'rates.json'
-    users: str = 'users.json'            
-    
+class BaseDB:
+    path = 'file.json'
+    dir_path = './data/'
+    @handler_errors
+    def _load_data(self):
+        with open(self.dir_path+self.path, 'r') as f:
+            return json.load(f)
+    @handler_errors
+    def _save_data(self,data):
+        with open(self.dir_path+self.path, 'w') as f:
+            json.dump(data, f, indent=2)
+
+        
+@dataclass
+class PortfoliosDB:
+    path = 'portfolios.json'
+
+@dataclass
+class RatesDB:
+    path = 'rates.json'
+
+@dataclass
+class UsersDB(BaseDB):
+    path = 'users.json' 
     def add_user(self,user_name, password) -> bool:
-        with open(self.dir_path+self.users, 'a') as f:
-            ...
-    
+        ...
+
     def check_password(self, user_name, password) -> bool:
-        with open(self.dir_path+self.users, 'r') as f:
-            ...
+        data = self._load_date()
     
     def get_user_info(self, user_name) -> bool:
-        with open(self.dir_path+self.users, 'r') as f:
-            ...
+        data = self._load_date()
+        
     def check_user(self,user_name) -> bool:
-        with open(self.dir_path+self.users, 'r') as f:
-            ...
+        data = self._load_date()
+            
+@dataclass
+class WalkerJSON:
+    portfolios = PortfoliosDB()
+    rates = RatesDB()
+    users = UsersDB()   

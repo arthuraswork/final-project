@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from parser import ParserCLI 
 import readline
+from valutatrade_hub.core.decorators import handler_logger
 
 def enable_arrow_keys():
     ...
@@ -26,47 +27,21 @@ class CLI:
         result = self.parser.run(user_input)
         match result['cmd']:
             case 'register':
-                self.on_register(result)
+                if result['args'].get('--username') & result['args'].get('--password'):
+                    return result
             case 'login':
-                self.on_login(result)
+                if result['args'].get('--username') & result['args'].get('--password'):
+                    return result
             case 'buy':
-                self.on_buy(result)
+                pass
             case 'sell':
-                self.on_sell(result)
+                pass
             case 'balance':
-                self.on_balance(result)
+                pass
             case 'portfolio':
-                self.on_portfolio(result)
-            case 'logout':
-                self.on_logout(result)
+                pass
             case 'exit':
-                self.on_exit(result)
-            case 'unknown':
-                self.on_unknown(result)
-            case 'exception':
-                self.on_except(result)
+                exit()
             case _:
-                self.on_unknown(result)
+                ...
 
-            
-        
-    def on_register(self, query):
-        ...
-    def on_login(self, query):
-        ...
-    def on_unknown(self, query):
-        ...
-    def on_except(self, query):
-        ...
-    def on_sell(self, query):
-        ...
-    def on_logout(self, query):
-        ...
-    def on_portfolio(self, query):
-        ...
-    def on_balance(self, query):    
-        ...
-    def on_exit(self, query):
-        exit()        
-while True:
-    CLI().input()

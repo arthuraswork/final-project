@@ -1,19 +1,8 @@
 from dataclasses import dataclass
 from datetime import datetime
-from consts import SALT  
 from utils import WalkerJSON
-import hashlib
-
-def hashing(password: str) -> str: 
-    return hashlib.sha256(f'{password}{SALT}'.encode() ).hexdigest()
 
 
-
-def register(user_name, password):
-    hex_password = hashing(password)
-    if not db.check_user(user_name):
-        db.add_user(user_name,password)
-        
 @dataclass
 class User:
     _user_id: int
@@ -21,11 +10,12 @@ class User:
     _hashed_password: str
     _salt: str
     _registration_date: datetime
-
+    _is_logined: bool = False       
+    
     def get_user_info(self, query):
         user_name = query.get('--username')
         password  = query.get('--password')
-        if self.verify_password(password):
+        if self.verify_password(user_name, password):
             ...
 
     def change_password(self, new_password: str):
