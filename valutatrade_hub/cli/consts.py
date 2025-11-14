@@ -18,3 +18,4 @@ class TokenArgs(Enum):
     AMOUNT   = '--amount'
     FROM     = '--from'
     TO       = '--to'
+    BASE     = '--base'
