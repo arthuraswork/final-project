@@ -20,6 +20,4 @@ class TokenArgs(Enum):
     BASE     = '--base'
     
 VALUTAS = ['USD','EUR','BTC','ETH','RUB']
-    
-SALT = 'ryan-gosling'
-
+salt_charset = ['a','!','}','$','+','?','c','Q','>','x','G']

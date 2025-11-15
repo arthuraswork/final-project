@@ -1,17 +1,17 @@
 from dataclasses import dataclass
 import json      
 from .decorators import handler_errors
-
+from .utils_funcs import hashing
 @dataclass
 class BaseDB:
     path = 'file.json'
     dir_path = './data/'
     @handler_errors
-    def _load_data(self) -> dict:
+    def _load_data(self) -> list:
         with open(self.dir_path+self.path, 'r') as f:
             return json.load(f)
     @handler_errors
-    def _save_data(self,data) -> dict:
+    def _save_data(self,data):
         with open(self.dir_path+self.path, 'w') as f:
             json.dump(data, f, indent=2)
 
@@ -39,23 +39,39 @@ class RatesDB(BaseDB):
         else:
             return {}
 
-        
-        
-
 @dataclass
 class UsersDB(BaseDB):
     path = 'users.json' 
-    def add_user(self,user_name, password) -> bool:
-        ...
+    def add_user(self, userdata) -> bool:
+        data = self._load_data()
+        data.append(userdata)
+        self._save_data(data)
 
     def check_password(self, user_name, password) -> bool:
         data = self._load_date()
-    
+        for user in data:
+            if user['username'] == user_name:
+                salt = user['salt']
+                hashed_password = hashing(password=password,salt=salt)
+                if user['hashed_password'] == hashed_password:
+                    return True
+                else:
+                    return False
+        else:
+            return False
+        
+    def check_user(self,user_name) -> tuple[False, int]:
+        data = self._load_data()
+        for i,user in enumerate(data):
+            if user['username'] == user_name:
+                return True, i
+        else:
+            return False, len(data)
+        
     def get_user_info(self, user_name) -> bool:
         data = self._load_date()
         
-    def check_user(self,user_name) -> bool:
-        data = self._load_date()
+        
             
 @dataclass
 class WalkerJSON:

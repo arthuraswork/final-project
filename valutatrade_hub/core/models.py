@@ -1,7 +1,5 @@
 from dataclasses import dataclass
 from datetime import datetime
-from utils import WalkerJSON
-
 
 @dataclass
 class User:
@@ -10,12 +8,11 @@ class User:
     _hashed_password: str
     _salt: str
     _registration_date: datetime
-    _is_logined: bool = False       
     
     def get_user_info(self, query):
-        user_name = query.get('--username')
+        username = query.get('--username')
         password  = query.get('--password')
-        if self.verify_password(user_name, password):
+        if self.verify_password(username, password):
             ...
 
     def change_password(self, new_password: str):
@@ -23,6 +20,9 @@ class User:
     
     def verify_password(self, user_name, password: str) -> bool:
         ...
+
+    def dict_transpil(self):
+        return {'user_id':self._user_id, 'username': self._user_name,'hashed_password': self._hashed_password, 'salt':self._salt,'registration_date':self._registration_date}
         
 
 
@@ -61,5 +61,3 @@ class Portfolio:
     
     def get_wallet(self,currency_code):
         ...
-
-db = WalkerJSON()

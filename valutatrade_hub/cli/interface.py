@@ -41,5 +41,6 @@ class CLI:
                 if valuta_from in VALUTAS and valuta_to in VALUTAS:
                     return result
             case _:
-                return {'cmd':'unknow'}
+                ...
+        return {'cmd':'unknow'}
 

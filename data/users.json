@@ -1,0 +1,23 @@
+[
+  {
+    "user_id": 0,
+    "username": "arthur",
+    "hashed_password": "d31533886412c5e247067bb89c782f60b0e526250f33f81c0bcf120024b69801",
+    "salt": "aa>acaxa$ac",
+    "registration_date": "2025-11-15T17:06:20"
+  },
+  {
+    "user_id": 1,
+    "username": "alice",
+    "hashed_password": "9e6cadb5c9b08697b22df32dced422625e9873b16f01e66d39f8e7b99a47b526",
+    "salt": "G+x+>+$+!+}",
+    "registration_date": "2025-11-15T17:07:10"
+  },
+  {
+    "user_id": 2,
+    "username": "arthurs",
+    "hashed_password": "e0616cd9c5a3b3cc5160b29a73d8e84a08150cf107362cd51f80abfd6643d57d",
+    "salt": "Qc$ccc}c?ca",
+    "registration_date": "2025-11-15T17:08:58"
+  }
+]
