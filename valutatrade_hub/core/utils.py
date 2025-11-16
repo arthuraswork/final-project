@@ -25,6 +25,8 @@ class PortfoliosDB(BaseDB):
         for wallet in data:
             if wallet['user_id'] == user_id:
                 return wallet
+        else:
+            return False
     def create_portfolio(self, user_id):
         data = self._load_data()
         data.append(

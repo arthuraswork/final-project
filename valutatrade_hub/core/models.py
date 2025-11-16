@@ -23,12 +23,13 @@ class User:
         ...
 
         
-
-
-@dataclass
 class Wallet:
     currency_code: str
     _balance: float = 0.0
+    
+    def __init__(self, currency_code, balance):
+        self.currency_code = currency_code
+        self.balance = balance
     
     def deposit(self, amount: float):
         ...
@@ -45,18 +46,26 @@ class Wallet:
     @balance.setter
     def balance(self, value: float):
         if value < 0:
-            ...
+            return False
         self._balance = value
+        return True
     
-@dataclass
+    
 class Portfolio:
-    _user_id: int
-    _wallets: dict[str, Wallet]
+    
+    def __init__(self, user_id: int, wallets: dict):
+        _user_id: int = user_id
+        _wallets: dict[str, Wallet] = wallets
+        
     def add_currence(self, currence_code: str):
         ...
     
     def get_total_value(self,base_currence='USD'):
         ...
     
-    def get_wallet(self,currency_code):
-        ...
+    def get_wallets(self):
+        return f"""
+    Ваш id: {self._user_id}
+    Ваши кошельки:
+    {[ f'{name} - {value.balance}' for name, value in self._wallets.items]}
+    """

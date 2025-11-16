@@ -58,9 +58,12 @@ class UserCase:
                 salt=data['salt'],
                 registration_date=data['registration_date']              
                     )
-            self.portfolio = self.db.portfolios.get_wallet_info(
-                data['user_id']
-                )
+            portfolio_data = self.db.portfolios.get_wallet_info(data['user_id'])
+            wallets = {key:Wallet(key,value['balance']) for key, value in portfolio_data['wallets'].items()}
+            self.portfolio = Portfolio(
+                user_id= portfolio_data['user_id']
+                wallets= wallets
+            )
             print(f'You are logined as {user_name}')
         else:
             print(f'Username or password are uncorrect')
@@ -72,24 +75,21 @@ class UserCase:
                     self.on_buy(request)
                 case 'sell':
                     self.on_sell(request)
-                case 'balance':
-                    self.on_balance(request)
                 case 'show-portfolio':
                     self.on_portfolio()
         else:
             print('First login with useername and password')
             
-                
+    def on_buy(self, query):
+        print(query)   
 
     def on_sell(self, query):
         print(query)
         
     def on_portfolio(self):
-        print(self.portfolio)
+        if self.portfolio:
+            print(self.portfolio.get_wallets())
         
-    def on_balance(self, query):    
-        print(query)
-
     def on_get_rates(self,query):
         
         fromto = query['args']['--from'] + '_' + query['args']['--to']

@@ -25,11 +25,9 @@ class CLI:
             case 'login':
                 if result['args'].get('--username') and result['args'].get('--password'):
                     return result
-            case 'buy'|'sell``':
+            case 'buy'|'sell':
                 if result['args'].get('--currency') and result['args'].get('--amount'):
                     return result
-            case 'balance':
-                pass
             case 'show-portfolio':
                 return result
             case 'exit':
