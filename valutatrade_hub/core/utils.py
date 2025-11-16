@@ -14,13 +14,20 @@ class BaseDB:
     def _save_data(self,data):
         with open(self.dir_path+self.path, 'w') as f:
             json.dump(data, f, indent=2)
+            
+    @property
+    def data(self):
+        return self._load_data()
+    
+    def update(self, data):
+        self._save_data(data)
 
         
 @dataclass
 class PortfoliosDB(BaseDB):
     path = 'portfolios.json'
 
-    def get_wallet_info(self, user_id):
+    def get_wallet_info(self, user_id) -> list:
         data = self._load_data()
         for wallet in data:
             if wallet['user_id'] == user_id:
@@ -40,7 +47,7 @@ class PortfoliosDB(BaseDB):
             }
         )
         self._save_data(data)
-        
+
     
 @dataclass
 class RatesDB(BaseDB):
@@ -51,15 +58,16 @@ class RatesDB(BaseDB):
         form: str = ''
         if rate:
             form = fromto
-        if not rate:
+        elif not rate:
             rate = data.get(tofrom)
             if rate:
-                form = fromto
+                form = tofrom
         if rate:
             rate['form'] = form
             return rate
         else:
             return {}
+        
 
 @dataclass
 class UsersDB(BaseDB):

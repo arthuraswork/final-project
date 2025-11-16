@@ -14,3 +14,12 @@ def handler_errors(func):
         except Exception as e:
             print(f'error: {e}')
     return wrapper
+
+
+def handler_log_feedback(func):
+    def wrapper(*args,**kwargs):
+        result =  func(*args,**kwargs)
+        if result:
+            print(f'operation result: {result}')
+        return result 
+    return wrapper

@@ -1,8 +1,6 @@
-from dataclasses import dataclass
 from valutatrade_hub.core.consts import TokenArgs, TokenCmdType
 from valutatrade_hub.core.decorators import handler_logger
   
-@dataclass
 class ParserCLI:
     @handler_logger
     def run(self, input: str):
@@ -10,7 +8,6 @@ class ParserCLI:
             return self.parse(input)
         except Exception as e:
             return {'cmd':'exception', 'exception': e}
-    
 
     def parse(self, input: str):
         tokenized = input.split()
