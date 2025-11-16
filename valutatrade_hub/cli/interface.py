@@ -25,14 +25,13 @@ class CLI:
             case 'login':
                 if result['args'].get('--username') and result['args'].get('--password'):
                     return result
-            case 'buy':
-                pass
-            case 'sell':
-                pass
+            case 'buy'|'sell``':
+                if result['args'].get('--currency') and result['args'].get('--amount'):
+                    return result
             case 'balance':
                 pass
-            case 'portfolio':
-                pass
+            case 'show-portfolio':
+                return result
             case 'exit':
                 exit()
             case 'get-rate':
@@ -40,7 +39,6 @@ class CLI:
                 valuta_to   = result['args'].get('--to')
                 if valuta_from in VALUTAS and valuta_to in VALUTAS:
                     return result
-            case _:
-                ...
+                
         return {'cmd':'unknow'}
 

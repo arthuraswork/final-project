@@ -20,4 +20,5 @@ class TokenArgs(Enum):
     BASE     = '--base'
     
 VALUTAS = ['USD','EUR','BTC','ETH','RUB']
-salt_charset = ['a','!','}','$','+','?','c','Q','>','x','G']
+SALTCHARSET = ['a','!','}','$','+','?','c','Q','>','x','G']
+DATEFRMT = '%Y-%m-%dT%H:%M:%S'

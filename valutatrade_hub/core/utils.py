@@ -20,6 +20,26 @@ class BaseDB:
 class PortfoliosDB(BaseDB):
     path = 'portfolios.json'
 
+    def get_wallet_info(self, user_id):
+        data = self._load_data()
+        for wallet in data:
+            if wallet['user_id'] == user_id:
+                return wallet
+    def create_portfolio(self, user_id):
+        data = self._load_data()
+        data.append(
+            {
+            "user_id": user_id,
+            "wallets": {
+            "USD": {"balance": 0.00},
+            "BTC": {"balance": 0.00},
+            "EUR": {"balance": 0.00}
+                }
+            }
+        )
+        self._save_data(data)
+        
+    
 @dataclass
 class RatesDB(BaseDB):
     path = 'rates.json'
@@ -48,7 +68,7 @@ class UsersDB(BaseDB):
         self._save_data(data)
 
     def check_password(self, user_name, password) -> bool:
-        data = self._load_date()
+        data = self._load_data()
         for user in data:
             if user['username'] == user_name:
                 salt = user['salt']
@@ -69,7 +89,10 @@ class UsersDB(BaseDB):
             return False, len(data)
         
     def get_user_info(self, user_name) -> bool:
-        data = self._load_date()
+        data = self._load_data()
+        for user in data:
+            if  user['username'] == user_name:
+                return user 
         
         
             

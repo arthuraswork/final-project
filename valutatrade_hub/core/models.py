@@ -3,26 +3,25 @@ from datetime import datetime
 
 @dataclass
 class User:
-    _user_id: int
-    _user_name: str
-    _hashed_password: str
-    _salt: str
-    _registration_date: datetime
+    def __init__(self, user_id, user_name, hex_password, salt, registration_date):
+        self._user_id = user_id 
+        self._user_name = user_name
+        self._hex_password = hex_password
+        self._salt = salt
+        self._registration_date = registration_date
     
-    def get_user_info(self, query):
-        username = query.get('--username')
-        password  = query.get('--password')
-        if self.verify_password(username, password):
-            ...
-
+    def get_user_info(self):
+                return {
+                    'user_id':self._user_id, 'username': self._user_name,
+                    'hashed_password': self._hashed_password, 
+                    'salt': self._salt,'registration_date': self._registration_date
+                    }
     def change_password(self, new_password: str):
-        ...
+        ... 
     
     def verify_password(self, user_name, password: str) -> bool:
         ...
 
-    def dict_transpil(self):
-        return {'user_id':self._user_id, 'username': self._user_name,'hashed_password': self._hashed_password, 'salt':self._salt,'registration_date':self._registration_date}
         
 
 
