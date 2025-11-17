@@ -1,5 +1,3 @@
-from datetime import datetime
-
 class User:
     def __init__(self, user_id, user_name, hex_password, salt, registration_date):
         self._user_id = user_id 
@@ -18,9 +16,6 @@ class User:
     def change_password(self, new_password: str, new_salt: str):
         self._hex_password = new_password
         self._salt  = new_salt
-    
-    def verify_password(self, user_name, password: str) -> bool:
-        ...
 
         
 class Wallet:
@@ -63,9 +58,17 @@ class Portfolio:
     def add_currence(self, currency: str):
         self._wallets[currency] = Wallet(currency_code=currency, balance=0.00)
     
-    def get_total_value(self):
-        ...
-    
+    def get_total_value(self, rates, base_currency):
+        total = 0.0
+        for wallet in self._wallets.values():
+            if wallet.currency_code == base_currency:
+                total += wallet.balance
+            else:
+                pair = f"{wallet.currency_code}_{base_currency}"
+                if pair in rates:
+                    total += wallet.balance * rates[pair]["rate"]
+        return total
+            
     def get_dicted_wallets(self) -> dict:
         return { 'user_id': 
                     self._user_id,
@@ -89,8 +92,8 @@ class Portfolio:
     def change_wallets_value(self, currency, amount, operation):
         if self.get_balance(currency):
             if operation == 'w':
-                self._wallets[currency].withdraw(amount)
+                return self._wallets[currency].withdraw(amount)
             elif operation == 'd':
-                self._wallets[currency].deposit(amount)
-            return True
-        return False
+                return self._wallets[currency].deposit(amount)
+            return False
+        raise False

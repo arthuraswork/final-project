@@ -19,7 +19,21 @@ class TokenArgs(Enum):
     TO       = '--to'
     BASE     = '--base'
     
-VALUTAS = ['USD','EUR','BTC','ETH','RUB']
+
+VALUTAS = {
+    ('usd', 'USD', 'доллар', 'доллары', 'долларов', '$'): 'USD',
+    ('eur', 'EUR', 'евро', '€'): 'EUR', 
+    ('rub', 'RUB', 'рубль', 'рубли', 'рублей', '₽'): 'RUB',
+    ('btc', 'BTC', 'биткоин', 'биткойн'): 'BTC',
+    ('eth', 'ETH', 'эфир', 'эфириум'): 'ETH',
+    ('gbp', 'GBP', 'фунт', 'фунты'): 'GBP',
+    ('jpy', 'JPY', 'иена', 'иены', '¥'): 'JPY',
+    ('cny', 'CNY', 'юань', 'юани'): 'CNY',
+    ('sol', 'SOL', 'солана'): 'SOL',
+    ('bnb', 'BNB', 'бинанс'): 'BNB',
+    ('ada', 'ADA', 'кардано'): 'ADA'
+}
+
 SALT_CHARSET = ['a','!','}','$','+','?','c','Q','>','x','G']
 DATE_FORMAT = '%Y-%m-%dT%H:%M:%S'
 BASE_CURRENCY = 'USD'

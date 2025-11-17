@@ -2,6 +2,7 @@ from dataclasses import dataclass
 import json      
 from .decorators import handler_errors
 from .utils_funcs import hashing, reversed_rate
+
 @dataclass
 class BaseDB:
     path = 'file.json'
@@ -71,7 +72,6 @@ class RatesDB(BaseDB):
             return rate
         else:
             return {}
-        
 
 @dataclass
 class UsersDB(BaseDB):

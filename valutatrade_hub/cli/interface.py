@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from .parser import ParserCLI 
 import readline
 from valutatrade_hub.core.consts import VALUTAS
-from valutatrade_hub.core.decorators import handler_logger, handler_errors
+from valutatrade_hub.core.exceptoins import CurrencyNotFoundError
 
 def enable_arrow_keys():
     ...
@@ -20,7 +20,6 @@ class CLI:
         except KeyboardInterrupt as e:
             return {'cmd':'unknow', 'exception': e}
 
-    @handler_errors 
     def processing(self, user_input):
         result = self.parser.run(user_input)
         match result['cmd']:
@@ -30,8 +29,15 @@ class CLI:
                 if result['args'].get('--username') and result['args'].get('--password'):
                     return result
             case 'buy'|'sell':
-                if result['args'].get('--currency') and result['args'].get('--amount'):
-                    return result
+                currency = result['args'].get('--currency')
+                if currency and result['args'].get('--amount'):
+                    for aliases in VALUTAS.keys():
+                        if currency in aliases:
+                            result['args']['--currency'] = VALUTAS[aliases]
+                            return result
+                    else:
+                        raise CurrencyNotFoundError                            
+                return {'cmd':'unknow'}
             case 'show-portfolio':
                 return result
             case 'exit':
@@ -39,8 +45,18 @@ class CLI:
             case 'get-rate':
                 valuta_from = result['args'].get('--from')
                 valuta_to   = result['args'].get('--to')
-                if valuta_from in VALUTAS and valuta_to in VALUTAS:
-                    return result
+                for aliases in VALUTAS.keys():
+                    if valuta_from in aliases:
+                        result['args']['--from'] = VALUTAS[aliases]
+                        break
+                else:
+                    raise CurrencyNotFoundError  
+                       
+                for aliases in VALUTAS.keys():
+                    if valuta_to in aliases:
+                        result['args']['--to'] = VALUTAS[aliases]
+                        return result
+                raise CurrencyNotFoundError
                 
         return {'cmd':'unknow'}
 

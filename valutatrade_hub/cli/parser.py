@@ -1,8 +1,8 @@
 from valutatrade_hub.core.consts import TokenArgs, TokenCmdType
-from valutatrade_hub.core.decorators import handler_logger
+from valutatrade_hub.core.decorators import handler_log_action
   
 class ParserCLI:
-    @handler_logger
+    @handler_log_action
     def run(self, input: str):
         try:
             return self.parse(input)

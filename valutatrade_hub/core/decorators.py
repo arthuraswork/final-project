@@ -1,4 +1,4 @@
-def handler_logger(func):
+def handler_log_action(func):
     def wrapper(*args,**kwargs):
         result =  func(*args,**kwargs)
         if result:
