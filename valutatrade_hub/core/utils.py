@@ -90,7 +90,7 @@ class UsersDB(BaseDB):
         else:
             return False
         
-    def check_user(self,user_name) -> tuple[False, int]:
+    def check_user(self,user_name) -> tuple[bool, int]:
         data = self._load_data()
         for i,user in enumerate(data):
             if user['username'] == user_name:
@@ -108,6 +108,6 @@ class UsersDB(BaseDB):
             
 @dataclass
 class WalkerJSON:
-    portfolios = PortfoliosDB()
+    portfolio = PortfoliosDB()
     rates = RatesDB()
     users = UsersDB()   

@@ -52,7 +52,7 @@ class UserCase:
                 registration_date=datetime.now().strftime(DATE_FORMAT)                
                     )
             self.db.users.add_user(user.get_user_info())
-            self.db.portfolios.create_portfolio(new_user_id)
+            self.db.portfolio.create_portfolio(new_user_id)
             return 'Registration succesfull'
         else:
             return f'User: {user_name} already exists, choice another name'
@@ -71,7 +71,7 @@ class UserCase:
                 salt=data['salt'],
                 registration_date=data['registration_date']              
                     )
-            portfolio_data = self.db.portfolios.get_wallet_info(data['user_id'])
+            portfolio_data = self.db.portfolio.get_wallet_info(data['user_id'])
             wallets = {key:Wallet(key, value['balance']) for key, value in list(portfolio_data['wallets'].items())}
             self.portfolio = Portfolio(
                 user_id= portfolio_data['user_id'],
@@ -138,17 +138,17 @@ class UserCase:
 
     def commit_changes_portfolio(self, new_portfolio_value):
         user_id = self._session.get_user_info()['user_id']
-        old_data = self.db.portfolios.data
+        old_data = self.db.portfolio.data
         data = old_data.copy()
         try:
             for i, portfolio in enumerate(data):
                 if portfolio['user_id'] == user_id:
                     data[i] = new_portfolio_value
-                    self.db.portfolios.update(data)
+                    self.db.portfolio.update(data)
                     return f'succesfull'
             return 'Wallet not found'
         except:
-            self.db.portfolios.update(old_data)
+            self.db.portfolio.update(old_data)
             return "DB error, changes notsaved"
                     
             
@@ -157,8 +157,10 @@ class UserCase:
         rate = reversed_rate(self.db.rates.currency_rate(
             fromto=f'{BASE_CURRENCY}_{currency}',
             tofrom=f'{currency}_{BASE_CURRENCY}'
-                                           ))
-        price = calculations(rate['rate'],amount)
+                )['rate']
+                             )
+        print(rate)
+        price = calculations(rate,amount)
         if all(
                 (
                 self.portfolio.change_wallets_value(

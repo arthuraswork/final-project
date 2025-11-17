@@ -12,8 +12,8 @@ def salt_generator():
     charset = [rd.choice(SALT_CHARSET) for _ in range(SALT_LEN)]
     string_repr = f'{rd.choice(SALT_CHARSET)}'.join(charset)
     return string_repr
-def calculations(rate, amount):
+def calculations(rate, amount) -> float:
     return rate * amount
 
 def reversed_rate(rate):
-    return f"{(1 / rate):.8f}"
+    return round(1 / rate)
