@@ -134,7 +134,7 @@ class UserCase:
             return 'User not found'
         except:
             self.db.user.update(old_data)
-            return "DB error, changes notsaved"
+            return "DB error, changes not saved"
 
     def commit_changes_portfolio(self, new_portfolio_value):
         user_id = self._session.get_user_info()['user_id']
@@ -153,7 +153,30 @@ class UserCase:
                     
             
     def on_sell(self, query):
-        ...
+        currency, amount = query['args'].get('--currency'), float(query['args'].get('--amount'))
+        rate = reversed_rate(self.db.rates.currency_rate(
+            fromto=f'{BASE_CURRENCY}_{currency}',
+            tofrom=f'{currency}_{BASE_CURRENCY}'
+                                           ))
+        price = calculations(rate['rate'],amount)
+        if all(
+                (
+                self.portfolio.change_wallets_value(
+                currency=BASE_CURRENCY,
+                amount= price,
+                operation='d'
+                ),
+            self.portfolio.change_wallets_value(
+                currency=currency, 
+                amount= amount, 
+                operation= 'w'
+                )
+                    )
+                        ):
+            
+            return self.commit_changes_portfolio(self.portfolio.get_dicted_wallets())
+        else:
+            return f'Your balance is too low'
         
     def on_portfolio(self):
         if self.portfolio:
