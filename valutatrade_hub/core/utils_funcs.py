@@ -16,4 +16,4 @@ def calculations(rate, amount) -> float:
     return rate * amount
 
 def reversed_rate(rate):
-    return round(1 / rate)
+    return round(1 / rate, 8)

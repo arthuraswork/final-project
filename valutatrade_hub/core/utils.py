@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import json      
 from .decorators import handler_errors
-from .utils_funcs import hashing
+from .utils_funcs import hashing, reversed_rate
 @dataclass
 class BaseDB:
     path = 'file.json'
@@ -55,13 +55,17 @@ class RatesDB(BaseDB):
     def currency_rate(self, fromto, tofrom):
         data = self._load_data()
         rate = data.get(fromto)
-        form: str = ''
+        form = ''
+        
         if rate:
             form = fromto
-        elif not rate:
+        else:
             rate = data.get(tofrom)
             if rate:
+                rate = rate.copy()  
+                rate['rate'] = reversed_rate(rate['rate'])
                 form = tofrom
+        
         if rate:
             rate['form'] = form
             return rate

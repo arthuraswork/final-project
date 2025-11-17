@@ -5,7 +5,7 @@ from .models import User, Portfolio, Wallet
 from .utils import WalkerJSON
 from .utils_funcs import hashing, salt_generator, calculations, reversed_rate
 from .consts import DATE_FORMAT, BASE_CURRENCY, MIN_PASSWORD_VALUE
-from .decorators import handler_log_feedback
+from .decorators import handler_log_feedback, handler_errors
 
 @dataclass
 class UserCase:
@@ -80,7 +80,7 @@ class UserCase:
             return f'You are logined as {user_name}'
         else:
             return f'Username or password are uncorrect'
-        
+
     def check_is_logined(self,query):
         if self._is_logined and self._session:
             match query['cmd']:
@@ -94,14 +94,14 @@ class UserCase:
                     return self.on_change_password(query)
         else:
             return 'First login with useername and password'
-            
+    @handler_errors        
     def on_buy(self, query):
         currency, amount = query['args'].get('--currency'), float(query['args'].get('--amount'))
         rate = self.db.rates.currency_rate(
             fromto=f'{BASE_CURRENCY}_{currency}',
             tofrom=f'{currency}_{BASE_CURRENCY}'
-                                           )
-        price = calculations(rate['rate'],amount)
+            )
+        price = calculations(reversed_rate(rate['rate']),amount)
         if all(
                 (
                 self.portfolio.change_wallets_value(
@@ -120,7 +120,7 @@ class UserCase:
             return self.commit_changes_portfolio(self.portfolio.get_dicted_wallets())
         else:
             return f'Your balance is too low'
-        
+    
     def commit_changes_user_data(self) -> str:
         user_data = self._session.get_user_info()
         old_data = self.db.users.data
@@ -151,14 +151,15 @@ class UserCase:
             self.db.portfolio.update(old_data)
             return "DB error, changes notsaved"
                     
-            
+    @handler_errors
     def on_sell(self, query):
         currency, amount = query['args'].get('--currency'), float(query['args'].get('--amount'))
-        rate = reversed_rate(self.db.rates.currency_rate(
-            fromto=f'{BASE_CURRENCY}_{currency}',
-            tofrom=f'{currency}_{BASE_CURRENCY}'
+        rate = self.db.rates.currency_rate(
+            fromto=f'{currency}_{BASE_CURRENCY}',
+            tofrom=f'{BASE_CURRENCY}_{currency}'
                 )['rate']
-                             )
+        
+        
         price = calculations(rate,amount)
         if all(
                 (
@@ -191,7 +192,7 @@ class UserCase:
         rate = self.db.rates.currency_rate(fromto=fromto,tofrom=tofrom)
         if rate:
             return f"""
-    {rate['form'].replace('_',' -> ')} {rate['rate']}
+    {fromto.replace('_',' -> ')} {rate['rate']}
     reversed: {reversed_rate(rate['rate'])}
     updated at: {rate['updated_at']}
     """
