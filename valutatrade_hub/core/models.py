@@ -32,10 +32,12 @@ class Wallet:
         self._balance = balance
     
     def deposit(self, amount: float):
-        self._balance += amount
-        return True
+        if amount > 0:
+            self._balance += amount
+            return True
+        return False
     def withdraw(self, amount: float):
-        if (self._balance - amount) > 0:
+        if (self._balance - amount) > 0 and amount > 0:
             self._balance -= amount
             return True
         return False

@@ -159,7 +159,6 @@ class UserCase:
             tofrom=f'{currency}_{BASE_CURRENCY}'
                 )['rate']
                              )
-        print(rate)
         price = calculations(rate,amount)
         if all(
                 (
