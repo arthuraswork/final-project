@@ -52,7 +52,7 @@ class PortfoliosDB(BaseDB):
 @dataclass
 class RatesDB(BaseDB):
     path = 'rates.json'
-    def get_rates(self, fromto, tofrom):
+    def currency_rate(self, fromto, tofrom):
         data = self._load_data()
         rate = data.get(fromto)
         form: str = ''

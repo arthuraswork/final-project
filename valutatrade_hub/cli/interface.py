@@ -14,15 +14,19 @@ def set_history_length():
 class CLI:
     parser = ParserCLI()
     prompt: str = '>>>'
-    @handler_errors
     def input(self) -> dict:
-        user_input = input(self.prompt)
+        try:
+            return self.processing(input(self.prompt))
+        except KeyboardInterrupt as e:
+            return {'cmd':'unknow', 'exception': e}
+
+    @handler_errors 
+    def processing(self, user_input):
         result = self.parser.run(user_input)
         match result['cmd']:
-            case 'register':
-                if result['args'].get('--username') and result['args'].get('--password'):
+            case 'register'|'login'|'change-password':
+                if result['cmd'] == 'change-password' and result['args'].get('--password'):
                     return result
-            case 'login':
                 if result['args'].get('--username') and result['args'].get('--password'):
                     return result
             case 'buy'|'sell':
@@ -31,7 +35,7 @@ class CLI:
             case 'show-portfolio':
                 return result
             case 'exit':
-                exit()
+                return result
             case 'get-rate':
                 valuta_from = result['args'].get('--from')
                 valuta_to   = result['args'].get('--to')

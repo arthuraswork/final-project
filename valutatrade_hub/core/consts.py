@@ -9,7 +9,7 @@ class TokenCmdType(Enum):
     PORTFOLIO = "show-portfolio"
     EXIT      = "exit"
     GETRATE   = "get-rate"
-    
+    CHANGE_PASSWORD = 'change-password'
 class TokenArgs(Enum):
     USERNAME = '--username'
     PASSWORD = '--password'
@@ -20,6 +20,8 @@ class TokenArgs(Enum):
     BASE     = '--base'
     
 VALUTAS = ['USD','EUR','BTC','ETH','RUB']
-SALTCHARSET = ['a','!','}','$','+','?','c','Q','>','x','G']
-DATEFRMT = '%Y-%m-%dT%H:%M:%S'
-BASEVALUTA = 'USD'
+SALT_CHARSET = ['a','!','}','$','+','?','c','Q','>','x','G']
+DATE_FORMAT = '%Y-%m-%dT%H:%M:%S'
+BASE_CURRENCY = 'USD'
+MIN_PASSWORD_VALUE = 4
+SALT_LEN = 6

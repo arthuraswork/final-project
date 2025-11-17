@@ -3,8 +3,8 @@ from datetime import datetime
 from valutatrade_hub.cli.interface import CLI
 from .models import User, Portfolio, Wallet
 from .utils import WalkerJSON
-from .utils_funcs import hashing, salt_gen, calculations, transaction
-from .consts import DATEFRMT, BASEVALUTA
+from .utils_funcs import hashing, salt_generator, calculations, reversed_rate
+from .consts import DATE_FORMAT, BASE_CURRENCY, MIN_PASSWORD_VALUE
 from .decorators import handler_log_feedback
 
 @dataclass
@@ -12,28 +12,36 @@ class UserCase:
     cli = CLI()
     db = WalkerJSON()
     _is_logined: bool = False   
-    user: User | None = None    
+    _session: User | None = None    
     portfolio: Portfolio | None = None
     @handler_log_feedback
     def user_request(self):
         query = self.cli.input()
         match query.get('cmd'):
             case 'register':
-                return self.on_register(query['args'].get('--username'),query['args'].get('--password'))
+                return self.on_register(query)
             case 'login':
                 return self.on_login(query)
-            case 'buy'|'sell'|'balance'|'show-portfolio':
+            case 'buy'|'sell'|'balance'|'show-portfolio'|'change-password':
                 return self.check_is_logined(query)
             case 'exit':
-                return self.on_exit(query)
+                return self.on_exit()
             case 'get-rate':
                 return self.on_get_rates(query)
         return 'unknown command, please try again'
+    
+    def on_change_password(self, query):
+        new_password = query['args'].get('--password')
+        hashed_new_password, salt = hashing(new_password,salt_generator(), return_salt=True)
+        self._session.change_password(new_password=hashed_new_password, new_salt =salt)
+        return self.commit_changes_user_data()
+        
             
-    def on_register(self, user_name, password):
-        if len(password) <= 4:
+    def on_register(self, query):
+        user_name, password = query['args'].get('--username'),  query['args'].get('--password')
+        if len(password) <= MIN_PASSWORD_VALUE:
             return 'Password is too short, use password > 4'
-        hex_password, salt = hashing(password,salt_gen(),return_salt=True)
+        hex_password, salt = hashing(password,salt_generator(),return_salt=True)
         collision, new_user_id = self.db.users.check_user(user_name)
         if not collision:
             user = User(
@@ -41,7 +49,7 @@ class UserCase:
                 user_name=user_name,
                 hex_password=hex_password,
                 salt=salt,
-                registration_date=datetime.now().strftime(DATEFRMT)                
+                registration_date=datetime.now().strftime(DATE_FORMAT)                
                     )
             self.db.users.add_user(user.get_user_info())
             self.db.portfolios.create_portfolio(new_user_id)
@@ -54,11 +62,9 @@ class UserCase:
         self._is_logined = self.db.users.check_password(
             user_name=user_name, password=password
             )
-        
-
         if self._is_logined:
             data = self.db.users.get_user_info(user_name)
-            self.user = User(
+            self._session = User(
                 user_id=data['user_id'],
                 user_name=data['username'],
                 hex_password=data['hashed_password'],
@@ -75,55 +81,79 @@ class UserCase:
         else:
             return f'Username or password are uncorrect'
         
-    def check_is_logined(self,request):
-        if self._is_logined and self.user:
-            match request['cmd']:
+    def check_is_logined(self,query):
+        if self._is_logined and self._session:
+            match query['cmd']:
                 case 'buy':
-                    return self.on_buy(request)
+                    return self.on_buy(query)
                 case 'sell':
-                    return self.on_sell(request)
+                    return self.on_sell(query)
                 case 'show-portfolio':
                     return self.on_portfolio()
+                case 'change-password':
+                    return self.on_change_password(query)
         else:
             return 'First login with useername and password'
             
     def on_buy(self, query):
         currency, amount = query['args'].get('--currency'), float(query['args'].get('--amount'))
-        rate = self.db.rates.get_rates(fromto=f'{BASEVALUTA}_{currency}', tofrom=f'{currency}_{BASEVALUTA}')
+        rate = self.db.rates.currency_rate(
+            fromto=f'{BASE_CURRENCY}_{currency}',
+            tofrom=f'{currency}_{BASE_CURRENCY}'
+                                           )
         price = calculations(rate['rate'],amount)
-        
-        old_balance = self.portfolio.get_balance(currency=currency) 
-        base_balance = self.portfolio.get_balance(currency=BASEVALUTA)
-        print(old_balance, base_balance)
-        if base_balance.balance > price:
-            if transaction(
-    self.portfolio.change_wallets_value(currency=BASEVALUTA,new_value=base_balance.balance-price),
-    self.portfolio.change_wallets_value(currency=currency, new_value=amount+old_balance.balance)
-                            ):
-                print(self.portfolio.get_dicted_wallets())
-                self.commit_changes(self.portfolio.get_dicted_wallets())
-                
-        else:
-            return f'Your balance is too low {base_balance.balance} < {price}'
+        if all(
+                (
+                self.portfolio.change_wallets_value(
+                currency=BASE_CURRENCY,
+                amount= price,
+                operation='w'
+                ),
+            self.portfolio.change_wallets_value(
+                currency=currency, 
+                amount= amount, 
+                operation= 'd'
+                )
+                    )
+                        ):
             
-    def commit_changes(self, new_portfolio_value):
-        user_id = self.user.get_user_info()['user_id']
+            return self.commit_changes_portfolio(self.portfolio.get_dicted_wallets())
+        else:
+            return f'Your balance is too low'
+        
+    def commit_changes_user_data(self) -> str:
+        user_data = self._session.get_user_info()
+        old_data = self.db.users.data
+        data = old_data.copy()
+        try:
+            for i, user in enumerate(data):
+                if user['username'] == user_data['username']:
+                    data[i] = user_data
+                    self.db.users.update(data)
+                    return f'succesfull'
+            return 'User not found'
+        except:
+            self.db.user.update(old_data)
+            return "DB error, changes notsaved"
+
+    def commit_changes_portfolio(self, new_portfolio_value):
+        user_id = self._session.get_user_info()['user_id']
         old_data = self.db.portfolios.data
         data = old_data.copy()
-        
         try:
             for i, portfolio in enumerate(data):
                 if portfolio['user_id'] == user_id:
                     data[i] = new_portfolio_value
                     self.db.portfolios.update(data)
-                    print(data)
+                    return f'succesfull'
+            return 'Wallet not found'
         except:
             self.db.portfolios.update(old_data)
-            return "db error"
+            return "DB error, changes notsaved"
                     
             
     def on_sell(self, query):
-        print(query)
+        ...
         
     def on_portfolio(self):
         if self.portfolio:
@@ -134,15 +164,18 @@ class UserCase:
         
         fromto = query['args']['--from'] + '_' + query['args']['--to']
         tofrom = query['args']['--to'] + '_' + query['args']['--from'] 
-        rate = self.db.rates.get_rates(fromto=fromto,tofrom=tofrom)
+        rate = self.db.rates.currency_rate(fromto=fromto,tofrom=tofrom)
         if rate:
             return f"""
     {rate['form'].replace('_',' -> ')} {rate['rate']}
-    reversed: {(1 / rate['rate']):.8f}
+    reversed: {reversed_rate(rate['rate'])}
     updated at: {rate['updated_at']}
     """
         else:
-            return 'rate not found'
+            return 'Rate not found'
         
-
-
+    def on_exit(self):
+        if self._is_logined:
+            exit(f'Bye bye, {self._session.get_user_info()['username']}')
+        else:
+            exit('Bye bye')

@@ -15,8 +15,9 @@ class User:
                     'salt': self._salt,'registration_date': self._registration_date
                     }
                 
-    def change_password(self, new_password: str):
-        ...
+    def change_password(self, new_password: str, new_salt: str):
+        self._hex_password = new_password
+        self._salt  = new_salt
     
     def verify_password(self, user_name, password: str) -> bool:
         ...
@@ -31,9 +32,13 @@ class Wallet:
         self._balance = balance
     
     def deposit(self, amount: float):
-        ...
+        self._balance += amount
+        return True
     def withdraw(self, amount: float):
-        ...
+        if (self._balance - amount) > 0:
+            self._balance -= amount
+            return True
+        return False
     def get_balance(self):
         return f"{self.currency_code}: {self.balance}"
 
@@ -53,29 +58,37 @@ class Portfolio:
         self. _user_id: int = user_id
         self._wallets: dict[str, Wallet] = wallets
         
-    def add_currence(self, currence_code: str):
-        ...
+    def add_currence(self, currency: str):
+        self._wallets[currency] = Wallet(currency_code=currency, balance=0.00)
     
     def get_total_value(self):
         ...
     
     def get_dicted_wallets(self) -> dict:
-        return { 'user_id': self._user_id,
+        return { 'user_id': 
+                    self._user_id,
                 'wallets': {
-            key:{
+                    key:{
                 'balance': value.balance
                 } for key, value in self._wallets.items()
-            }
+                            }
                 }
     
     def get_wallets(self):
         return [wallet.get_balance() for wallet in self._wallets.values()]
     
     def get_balance(self, currency):
+        balance = self._wallets.get(currency)
+        if balance:
+            return balance
+        self.add_currence(currency=currency)
         return self._wallets.get(currency)
-    
-    def change_wallets_value(self, currency, new_value):
+        
+    def change_wallets_value(self, currency, amount, operation):
         if self.get_balance(currency):
-            self._wallets[currency].balance = new_value
+            if operation == 'w':
+                self._wallets[currency].withdraw(amount)
+            elif operation == 'd':
+                self._wallets[currency].deposit(amount)
             return True
         return False
