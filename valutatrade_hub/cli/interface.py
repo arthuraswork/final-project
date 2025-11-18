@@ -46,9 +46,12 @@ class CLI:
             case 'update-rates':
                 return result
 
-            case 'get-rate':
+            case 'get-rate'|'show-rate':
                 valuta_from = result['args'].get('--from')
                 valuta_to   = result['args'].get('--to')
+                if not valuta_from and not valuta_to and result['cmd'] == 'show-rate':
+                    return result
+
                 for aliases in VALUTAS.keys():
                     if valuta_from in aliases:
                         result['args']['--from'] = VALUTAS[aliases]

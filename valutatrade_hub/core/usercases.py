@@ -28,11 +28,18 @@ class UserCase:
                 return self.check_is_logined(query)
             case 'exit':
                 return self.on_exit()
-            case 'get-rate':
+            case 'get-rate'|'show-rate':
+                if query.get('cmd') == 'show-rate':
+                    if query['args'].get('--top'):
+                        return self.on_show_rate(query) 
                 return self.on_get_rates(query)
             case 'update-rates':
                 return 'update-rates'
         return 'unknown command, please try again'
+    
+    def on_show_rate(self, query):
+        order = True if query['args']['--top'] == 'true' else False
+        return self.db.rates.get_all(order)
     
     def on_change_password(self, query):
         new_password = query['args'].get('--password')

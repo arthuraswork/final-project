@@ -1,37 +1,31 @@
 {
   "USD_BTC": {
-    "rate": {
-      "usd": 89967
-    },
-    "updated_at": "2025-11-18T10:33:26"
+    "rate": 90741,
+    "updated_at": "2025-11-18T11:29:42"
   },
   "USD_ETH": {
-    "rate": {
-      "usd": 3004.3
-    },
-    "updated_at": "2025-11-18T10:33:26"
+    "rate": 3028.8,
+    "updated_at": "2025-11-18T11:29:42"
   },
   "USD_SOL": {
-    "rate": {
-      "usd": 136.79
-    },
-    "updated_at": "2025-11-18T10:33:26"
+    "rate": 137.05,
+    "updated_at": "2025-11-18T11:29:42"
   },
   "USD_EUR": {
     "rate": 0.8625,
-    "updated_at": "2025-11-18T10:33:26"
+    "updated_at": "2025-11-18T11:29:42"
   },
   "USD_GBP": {
     "rate": 0.7598,
-    "updated_at": "2025-11-18T10:33:26"
+    "updated_at": "2025-11-18T11:29:42"
   },
   "USD_RUB": {
     "rate": 81.1919,
-    "updated_at": "2025-11-18T10:33:26"
+    "updated_at": "2025-11-18T11:29:42"
   },
   "sources": {
     "crypto_rates": "https://api.coingecko.com/api/v3",
     "fiat_rates": "https://v6.exchangerate-api.com/v6"
   },
-  "timestamp": "2025-11-18T10:33:26"
+  "timestamp": "2025-11-18T11:29:42"
 }

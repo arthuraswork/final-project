@@ -3,7 +3,7 @@ from .config import ParserConfig
 from valutatrade_hub.core.consts import DATE_FORMAT
 from .api_clients import CoinGeckoClient, ExchangeRateClient
 from valutatrade_hub.infra.database import DatabaseManager  
-from valutatrade_hub.core.decorators import handler_api_errors
+from valutatrade_hub.core.decorators import handler_api_errors, handler_log_action
 class RatesUpdater:
     def __init__(self):
         self.config = ParserConfig()
@@ -11,19 +11,22 @@ class RatesUpdater:
         self.exchange_api  = ExchangeRateClient() 
         self.db = DatabaseManager()
 
+    #@handler_api_errors
     def update(self):
         coingecko_rate = self.coingecko_api.get()
         exchange_rate  = self.exchange_api.get()
-        if isinstance(coingecko_rate,dict) and isinstance(exchange_rate, dict):
+        if coingecko_rate and exchange_rate:
             new_rates = self.parse(coingecko_rate,exchange_rate )
+            print('[API info]: Saving data')    
             self.save_rates(new_rates)
+            print('[API info]: Rates saved')
             return True
         return False
 
     def parse(self,response_coingecko:dict, response_exchangerate:dict):
         dt = datetime.now().strftime(DATE_FORMAT)
         coingecko_return = {f'{self.config.BASE_CURRENCY}_{self.config.REVERSED_CRYPTO_ID_MAP[k]}':{
-            'rate':v, 'updated_at': dt
+            'rate':v['usd'], 'updated_at': dt
             } for k, v in response_coingecko.items()
               if k in self.config.CRYPTO_ID_MAP.values()}
         exchangerate_return = {
@@ -39,3 +42,4 @@ class RatesUpdater:
 
     def save_rates(self, rates):
         self.db.rates.update(rates)
+

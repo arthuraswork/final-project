@@ -9,6 +9,7 @@ class TokenCmdType(Enum):
     PORTFOLIO = "show-portfolio"
     EXIT      = "exit"
     GETRATE   = "get-rate"
+    SHOWRATE   = "show-rate"
     CHANGE_PASSWORD = 'change-password'
     UPDATE_RATE = 'update-rates'
 class TokenArgs(Enum):
@@ -18,6 +19,7 @@ class TokenArgs(Enum):
     AMOUNT   = '--amount'
     FROM     = '--from'
     TO       = '--to'
+    TOP      = '--top'
     BASE     = '--base'
     
 

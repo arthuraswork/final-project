@@ -2,8 +2,11 @@ import os
 class ParserConfig:
     
     def __init__(self):
-        self.EXCHENGE_API_KEY = os.getenv('EXCHANGERATE_API_KEY')
-        self.COIN_GECKO_API_KEY = os.getenv('COIN_GECKO_API_KEY') 
+        #self.EXCHENGE_API_KEY = os.getenv('EXCHANGERATE_API_KEY')
+        #self.COIN_GECKO_API_KEY = os.getenv('COIN_GECKO_API_KEY')
+        self.EXCHENGE_API_KEY = "f4c166608b6df9838599d5e6"
+        self.COIN_GECKO_API_KEY = "CG-ei4Vax9dm3eo1eo5uMhPYTfp"
+
         self.COINGECKO_URL: str = "https://api.coingecko.com/api/v3"
         self.EXCHANGERATE_API_URL: str = "https://v6.exchangerate-api.com/v6" 
         self.BASE_CURRENCY: str = "USD"

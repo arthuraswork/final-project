@@ -64,15 +64,16 @@ class RatesDB(BaseDB):
                 rate = rate.copy()  
                 rate['rate'] = reversed_rate(rate['rate'])
                 form = tofrom
-        
         if rate:
             rate['form'] = form
             return rate
         else:
             return {}
-
-
-    
+    def get_all(self, order):
+        data = [(k, v) for k, v in self._load_data().items() if k[:3] == 'USD']
+        sorted_data = sorted(data, key=lambda x: x[1]['rate'], reverse=order)
+        return ';'.join([f"\n{currency}: {info['rate']}" for currency, info in sorted_data])
+        
 @dataclass
 class UsersDB(BaseDB):
     path = 'users.json' 
