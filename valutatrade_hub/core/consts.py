@@ -10,6 +10,7 @@ class TokenCmdType(Enum):
     EXIT      = "exit"
     GETRATE   = "get-rate"
     CHANGE_PASSWORD = 'change-password'
+    UPDATE_RATE = 'update-rates'
 class TokenArgs(Enum):
     USERNAME = '--username'
     PASSWORD = '--password'

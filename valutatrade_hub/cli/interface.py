@@ -42,6 +42,10 @@ class CLI:
                 return result
             case 'exit':
                 return result
+            
+            case 'update-rates':
+                return result
+
             case 'get-rate':
                 valuta_from = result['args'].get('--from')
                 valuta_to   = result['args'].get('--to')

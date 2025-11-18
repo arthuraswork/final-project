@@ -41,9 +41,7 @@ class PortfoliosDB(BaseDB):
             {
             "user_id": user_id,
             "wallets": {
-            "USD": {"balance": 0.00},
-            "BTC": {"balance": 0.00},
-            "EUR": {"balance": 0.00}
+            "USD": {"balance": 0.00}
                 }
             }
         )
@@ -73,8 +71,7 @@ class RatesDB(BaseDB):
         else:
             return {}
 
-    def update_history():
-        ...
+
     
 @dataclass
 class UsersDB(BaseDB):

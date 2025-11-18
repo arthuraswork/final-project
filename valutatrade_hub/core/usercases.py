@@ -30,6 +30,8 @@ class UserCase:
                 return self.on_exit()
             case 'get-rate':
                 return self.on_get_rates(query)
+            case 'update-rates':
+                return 'update-rates'
         return 'unknown command, please try again'
     
     def on_change_password(self, query):

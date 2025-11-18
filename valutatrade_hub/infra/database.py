@@ -5,5 +5,6 @@ from dataclasses import dataclass
 class DatabaseManager:
     portfolio = PortfoliosDB()
     rates = RatesDB()
-    users = UsersDB()   
+    users = UsersDB() 
+      
     
