@@ -1,6 +1,8 @@
 import hashlib
-import random as rd 
+import random as rd
+
 from ..infra.consts import SALT_CHARSET, SALT_LEN
+
 
 def hashing(password: str,salt:str, return_salt = False) -> str|tuple[str,str]: 
     hashed_password = hashlib.sha256( f'{password}{salt}'.encode() ).hexdigest()

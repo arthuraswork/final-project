@@ -1,5 +1,7 @@
-from valutatrade_hub.core.utils import (RatesDB, PortfoliosDB, UsersDB, RatesHistoryDB)
 from dataclasses import dataclass
+
+from valutatrade_hub.core.utils import RatesHistoryDB
+
 
 @dataclass
 class HistoryManager:

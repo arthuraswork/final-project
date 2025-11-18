@@ -1,6 +1,9 @@
-from .config import ParserConfig
-import requests
 from dataclasses import dataclass
+
+import requests
+
+from .config import ParserConfig
+
 
 @dataclass
 class BaseAPI:

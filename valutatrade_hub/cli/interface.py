@@ -1,8 +1,11 @@
-from dataclasses import dataclass
-from .parser import ParserCLI 
 import readline
-from valutatrade_hub.infra.consts import VALUTAS
+from dataclasses import dataclass
+
 from valutatrade_hub.core.exceptoins import CurrencyNotFoundError
+from valutatrade_hub.infra.consts import VALUTAS
+
+from .parser import ParserCLI
+
 
 def enable_arrow_keys():
     ...
@@ -24,9 +27,12 @@ class CLI:
         result = self.parser.run(user_input)
         match result['cmd']:
             case 'register'|'login'|'change-password':
-                if result['cmd'] == 'change-password' and result['args'].get('--password'):
+                if (result['cmd'] == 'change-password' 
+                    and result['args'].get('--password')):
                     return result
-                if result['args'].get('--username') and result['args'].get('--password'):
+                if (result['args'].get('--username') 
+                    and 
+                    result['args'].get('--password')):
                     return result
             case 'buy'|'sell':
                 currency = result['args'].get('--currency')

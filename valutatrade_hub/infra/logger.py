@@ -1,6 +1,8 @@
-from datetime import datetime
 from dataclasses import dataclass
+from datetime import datetime
+
 from .consts import DATE_FORMAT
+
 
 @dataclass
 class Logger:
@@ -16,5 +18,6 @@ class Logger:
 
     def info(self, msg):
         print(f"[info] {msg}: {self.get_current_time()}")
-
+    def show(self,msg):
+        print(msg)
 log = Logger()

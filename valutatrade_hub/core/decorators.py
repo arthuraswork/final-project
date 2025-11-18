@@ -1,5 +1,6 @@
 from valutatrade_hub.infra.logger import log
 
+
 def handler_log_action(func):
     def wrapper(*args,**kwargs):
         result =  func(*args,**kwargs)

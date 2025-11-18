@@ -1,4 +1,6 @@
 import os
+
+
 class ParserConfig:
     
     def __init__(self):
@@ -18,4 +20,4 @@ class ParserConfig:
         self.REVERSED_CRYPTO_ID_MAP = {v:k for k,v in self.CRYPTO_ID_MAP.items()}
 
         # Сетевые параметры
-        self.REQUEST_TIMEOUT: int = 1
+        self.REQUEST_TIMEOUT: int = 10

@@ -1,11 +1,15 @@
 from datetime import datetime
-from .config import ParserConfig
-from valutatrade_hub.infra.consts import DATE_FORMAT
-from .api_clients import CoinGeckoClient, ExchangeRateClient
-from valutatrade_hub.infra.database import DatabaseManager  
+
 from valutatrade_hub.core.decorators import handler_api_errors
-from .storage import HistoryManager
+from valutatrade_hub.infra.consts import DATE_FORMAT
+from valutatrade_hub.infra.database import DatabaseManager
 from valutatrade_hub.infra.logger import log
+
+from .api_clients import CoinGeckoClient, ExchangeRateClient
+from .config import ParserConfig
+from .storage import HistoryManager
+
+
 class RatesUpdater:
     def __init__(self):
         self.config = ParserConfig()
@@ -29,7 +33,8 @@ class RatesUpdater:
 
     def parse(self,response_coingecko:dict, response_exchangerate:dict):
         dt = datetime.now().strftime(DATE_FORMAT)
-        coingecko_return = {f'{self.config.BASE_CURRENCY}_{self.config.REVERSED_CRYPTO_ID_MAP[k]}':{
+        coingecko_return = {
+            f'{self.config.REVERSED_CRYPTO_ID_MAP[k]}_{self.config.BASE_CURRENCY}':{
             'rate':v['usd'], 'updated_at': dt
             } for k, v in response_coingecko.items()
               if k in self.config.CRYPTO_ID_MAP.values()}
@@ -40,7 +45,10 @@ class RatesUpdater:
                 if k in self.config.FIAT_CURRENCIES
             } 
         final_dict = coingecko_return | exchangerate_return
-        final_dict['sources'] = {'crypto_rates': self.config.COINGECKO_URL, 'fiat_rates': self.config.EXCHANGERATE_API_URL}
+        final_dict['sources'] = {
+                                    'crypto_rates': self.config.COINGECKO_URL, 
+                                 'fiat_rates': self.config.EXCHANGERATE_API_URL
+                                 }
         final_dict['timestamp'] = dt
         return final_dict
 

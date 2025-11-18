@@ -1,6 +1,10 @@
 from datetime import datetime
-from .config import ParserConfig
+
 from valutatrade_hub.infra.logger import log
+
+from .config import ParserConfig
+
+
 class Scheduler:
     def __init__(self):
         self.init_time = datetime.now()

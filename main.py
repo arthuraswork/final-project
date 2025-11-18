@@ -1,7 +1,10 @@
-from valutatrade_hub.core.usercases import UserCase
 from dataclasses import dataclass
-from valutatrade_hub.parser_service.updater import RatesUpdater
+
+from valutatrade_hub.core.usercases import UserCase
 from valutatrade_hub.parser_service.scheduler import Scheduler
+from valutatrade_hub.parser_service.updater import RatesUpdater
+
+
 @dataclass
 class Program:
     user_case = UserCase()

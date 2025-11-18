@@ -9,15 +9,8 @@
   {
     "user_id": 1,
     "username": "Arthur",
-    "hashed_password": "fa4778316c5286277c13dd3a05a6a6dcc8192b47c2e2ccb3e60940549ca720d1",
-    "salt": "?x>xax$x>x}",
-    "registration_date": "2025-11-16T21:42:36"
-  },
-  {
-    "user_id": 2,
-    "username": "pahom",
-    "hashed_password": "14986eeb78a5c9c902f5d1c0b79dc8001514d239f348fd07ef2b1a6e8aec1e71",
-    "salt": "$}!}}}+}}}G",
-    "registration_date": "2025-11-16T21:54:10"
+    "hashed_password": "d4e8480781ee40d618291b4a11c5ea767b84f05ec118cc70e0f7c41f74418786",
+    "salt": "!+c+?+++a+c",
+    "registration_date": "2025-11-18T13:14:06"
   }
 ]

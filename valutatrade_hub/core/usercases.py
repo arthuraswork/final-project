@@ -1,12 +1,16 @@
 from dataclasses import dataclass
 from datetime import datetime
+
 from valutatrade_hub.cli.interface import CLI
-from .models import User, Portfolio, Wallet
 from valutatrade_hub.infra.database import DatabaseManager
-from .utils_funcs import hashing, salt_generator, calculations, reversed_rate
-from ..infra.consts import DATE_FORMAT, BASE_CURRENCY, MIN_PASSWORD_VALUE
-from .decorators import handler_log_feedback, handler_errors
-from .exceptoins import InsufficientFundsError, CurrencyNotFoundError
+from valutatrade_hub.infra.logger import log
+
+from ..infra.consts import BASE_CURRENCY, DATE_FORMAT, MIN_PASSWORD_VALUE
+from .decorators import handler_errors, handler_log_feedback
+from .exceptoins import InsufficientFundsError
+from .models import Portfolio, User, Wallet
+from .utils_funcs import calculations, hashing, reversed_rate, salt_generator
+
 
 @dataclass
 class UserCase:
@@ -43,13 +47,17 @@ class UserCase:
     
     def on_change_password(self, query):
         new_password = query['args'].get('--password')
-        hashed_new_password, salt = hashing(new_password,salt_generator(), return_salt=True)
+        hashed_new_password, salt = hashing(
+                                new_password,salt_generator(), 
+                                            return_salt=True
+                                            )
         self._session.change_password(new_password=hashed_new_password, new_salt =salt)
         return self.commit_changes_user_data()
         
             
     def on_register(self, query):
-        user_name, password = query['args'].get('--username'),  query['args'].get('--password')
+        user_name = query['args'].get('--username')
+        password = query['args'].get('--password')
         if len(password) <= MIN_PASSWORD_VALUE:
             return 'Password is too short, use password > 4'
         hex_password, salt = hashing(password,salt_generator(),return_salt=True)
@@ -83,14 +91,18 @@ class UserCase:
                 registration_date=data['registration_date']              
                     )
             portfolio_data = self.db.portfolio.get_wallet_info(data['user_id'])
-            wallets = {key:Wallet(key, value['balance']) for key, value in list(portfolio_data['wallets'].items())}
+            wallets = {
+                key:Wallet(key, value['balance']) for key, value in list(
+                    portfolio_data['wallets'].items()
+                    )
+                }
             self.portfolio = Portfolio(
                 user_id= portfolio_data['user_id'],
                 wallets= wallets
             ) 
             return f'You are logined as {user_name}'
         else:
-            return f'Username or password are uncorrect'
+            return 'Username or password are uncorrect'
 
     def check_is_logined(self,query):
         if self._is_logined and self._session:
@@ -107,12 +119,16 @@ class UserCase:
             return 'First login with useername and password'
     @handler_errors        
     def on_buy(self, query):
-        target_currency, amount = query['args'].get('--currency'), float(query['args'].get('--amount'))
+        target_currency = query['args'].get('--currency')
+        amount = float(query['args'].get('--amount'))
         rate = self.db.rates.currency_rate(
             fromto=f'{BASE_CURRENCY}_{target_currency}',
             tofrom=f'{target_currency}_{BASE_CURRENCY}'
             )
         price = calculations(reversed_rate(rate['rate']),amount)
+
+        log.show(f'{target_currency}: {amount} for {price} {BASE_CURRENCY}')
+        
         if self.portfolio.change_wallets_value(
                 currency=BASE_CURRENCY,
                 amount= price,
@@ -123,7 +139,10 @@ class UserCase:
                 amount= amount, 
                 operation= 'd'
                 ):
-                    return self.commit_changes_portfolio(self.portfolio.get_dicted_wallets())
+                    return self.commit_changes_portfolio(
+                        self.portfolio.get_dicted_wallets()
+                                                         )
+        self.backup_portfolio()
         raise InsufficientFundsError()
     
     def commit_changes_user_data(self) -> str:
@@ -135,11 +154,11 @@ class UserCase:
                 if user['username'] == user_data['username']:
                     data[i] = user_data
                     self.db.users.update(data)
-                    return f'succesfull'
+                    return 'succesfull'
             return 'User not found'
-        except:
-            self.db.user.update(old_data)
-            return "DB error, changes not saved"
+        except Exception as e:
+            self.db.portfolio.update(old_data)
+            log.alert(f"DB error: {e}, changes not saved")
 
     def commit_changes_portfolio(self, new_portfolio_value):
         user_id = self._session.get_user_info()['user_id']
@@ -150,37 +169,54 @@ class UserCase:
                 if portfolio['user_id'] == user_id:
                     data[i] = new_portfolio_value
                     self.db.portfolio.update(data)
-                    return f'succesfull'
+                    return 'succesfull'
             return 'Wallet not found'
-        except:
+        except Exception as e:
             self.db.portfolio.update(old_data)
-            raise "DB error, changes notsaved"
+            log.alert(f"DB error: {e}, changes not saved")
+        
+    def backup_portfolio(self):
+        old_data = self.db.portfolio.data
+        self.db.portfolio.update(old_data)
                     
     @handler_errors
     def on_sell(self, query):
-        target_currency, amount = query['args'].get('--currency'), float(query['args'].get('--amount'))
+        target_currency = query['args'].get('--currency')
+        amount = float(query['args'].get('--amount'))
+
         rate = self.db.rates.currency_rate(
             fromto=f'{target_currency}_{BASE_CURRENCY}',
             tofrom=f'{BASE_CURRENCY}_{target_currency}'
                 )['rate']
         price = calculations(rate,amount)
+
+        log.info(f'{BASE_CURRENCY}: {price} for {target_currency} {amount} ({rate})')
+
         if self.portfolio.change_wallets_value(
                 currency=target_currency,
-                amount= price,
+                amount= amount,
                 operation='w'
                 ):
             if self.portfolio.change_wallets_value(
                 currency=BASE_CURRENCY, 
-                amount= amount, 
+                amount= price, 
                 operation= 'd'
                 ):
-                    return self.commit_changes_portfolio(self.portfolio.get_dicted_wallets())
+                    return self.commit_changes_portfolio(
+                        self.portfolio.get_dicted_wallets()
+                        )
+        self.backup_portfolio()        
         raise InsufficientFundsError()
         
     def on_portfolio(self):
         if self.portfolio:
-            total_value = self.portfolio.get_total_value(self.db.rates.data,BASE_CURRENCY)
-            return '\nYour portfolio:\n' + ';\n'.join(self.portfolio.get_wallets()) + f'\nTotal value: {total_value} {BASE_CURRENCY}'
+            total_value = self.portfolio.get_total_value(
+                self.db.rates.data,BASE_CURRENCY
+                )
+            log.show('\nYour portfolio:\n',
+                     ';\n'.join(self.portfolio.get_wallets()),
+                     f'\nTotal value: {total_value} {BASE_CURRENCY}')
+            
         return 'Portfolio not found, please call to our support'
         
     def on_get_rates(self,query):
