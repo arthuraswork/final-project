@@ -7,7 +7,6 @@ class ParserConfig:
     """
     def __init__(self):
         self.EXCHENGE_API_KEY = os.getenv('EXCHANGERATE_API_KEY')
-
         self.COINGECKO_URL: str = "https://api.coingecko.com/api/v3"
         self.EXCHANGERATE_API_URL: str = "https://v6.exchangerate-api.com/v6" 
         self.BASE_CURRENCY: str = "USD"

@@ -171,6 +171,16 @@ valutatrade_hub/
 - Пароли хешируются с использованием SHA-256 и соли
 - Изоляция пользовательских данных
 
-## 📝 Лицензия
+## Установка
 
-Проект распространяется под открытой лицензией.
+Перед установкой, убедитесь, что у вас установлен менеджер зависиостей поэтри и make
+```bash
+git clone https://github.com/arthuraswork/final-project #установка 
+cd final-project 
+poetry install #установка запвисимостей
+export EXCHANGERATE_API_KEY='your_key' #добавление свого апи в окружение
+poetry run project
+ ```
+
+[![asciicast]( https://asciinema.org/a/Zq1agv7OHQ0YBPfM1bxeOqkgo.svg)]( https://asciinema.org/a/Zq1agv7OHQ0YBPfM1bxeOqkgo)
+

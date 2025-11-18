@@ -17,7 +17,6 @@ class RatesUpdater:
         self.exchange_api  = ExchangeRateClient() 
         self.db = DatabaseManager()
         self.historydb = HistoryManager()
-
     @handler_api_errors
     def update(self):
         """
@@ -39,7 +38,6 @@ class RatesUpdater:
         """
         парсинг
         """
-
         dt = datetime.now().strftime(DATE_FORMAT)
         coingecko_return = {
             f'{self.config.REVERSED_CRYPTO_ID_MAP[k]}_{self.config.BASE_CURRENCY}':{

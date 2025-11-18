@@ -262,8 +262,8 @@ class UserCase:
             total_value = self.portfolio.get_total_value(
                 self.db.rates.data,BASE_CURRENCY
                 )
-            log.show('\nYour portfolio:\n',
-                     ';\n'.join(self.portfolio.get_wallets()),
+            log.show('\nYour portfolio:\n' +
+                     ';\n'.join(self.portfolio.get_wallets()) +
                      f'\nTotal value: {total_value} {BASE_CURRENCY}')
             
         return 'Portfolio not found, please call to our support'

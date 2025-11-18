@@ -12,5 +12,19 @@
     "hashed_password": "d4e8480781ee40d618291b4a11c5ea767b84f05ec118cc70e0f7c41f74418786",
     "salt": "!+c+?+++a+c",
     "registration_date": "2025-11-18T13:14:06"
+  },
+  {
+    "user_id": 2,
+    "username": "kot",
+    "hashed_password": "338db49aac4ff81de8c052721d309648cd93d93f185857ae4698c8b629460944",
+    "salt": "!}?}c}}}}}}",
+    "registration_date": "2025-11-18T15:35:52"
+  },
+  {
+    "user_id": 3,
+    "username": "kotik",
+    "hashed_password": "8d4aa01d71ad2390ce93ec7f798479b7752af9ad78ab5297ad31e59374edc6c4",
+    "salt": "}QQQGQ}QaQ>",
+    "registration_date": "2025-11-18T15:38:58"
   }
 ]
