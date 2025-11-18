@@ -1,26 +1,30 @@
 from datetime import datetime
 from .config import ParserConfig
-from valutatrade_hub.core.consts import DATE_FORMAT
+from valutatrade_hub.infra.consts import DATE_FORMAT
 from .api_clients import CoinGeckoClient, ExchangeRateClient
 from valutatrade_hub.infra.database import DatabaseManager  
-from valutatrade_hub.core.decorators import handler_api_errors, handler_log_action
+from valutatrade_hub.core.decorators import handler_api_errors
+from .storage import HistoryManager
+from valutatrade_hub.infra.logger import log
 class RatesUpdater:
     def __init__(self):
         self.config = ParserConfig()
         self.coingecko_api = CoinGeckoClient()
         self.exchange_api  = ExchangeRateClient() 
         self.db = DatabaseManager()
+        self.historydb = HistoryManager()
 
-    #@handler_api_errors
+    @handler_api_errors
     def update(self):
         coingecko_rate = self.coingecko_api.get()
         exchange_rate  = self.exchange_api.get()
         if coingecko_rate and exchange_rate:
             new_rates = self.parse(coingecko_rate,exchange_rate )
-            print('[API info]: Saving data')    
+            log.info('Saving data ...')    
             self.save_rates(new_rates)
-            print('[API info]: Rates saved')
+            log.info('Rates updated')
             return True
+        log.alert('DB updating error')
         return False
 
     def parse(self,response_coingecko:dict, response_exchangerate:dict):
@@ -42,4 +46,8 @@ class RatesUpdater:
 
     def save_rates(self, rates):
         self.db.rates.update(rates)
+        self.save_to_history(rates)
+
+    def save_to_history(self,rates):
+        self.historydb.history.update_history(rates)
 

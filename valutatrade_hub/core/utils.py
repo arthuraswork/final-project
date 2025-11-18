@@ -114,5 +114,5 @@ class RatesHistoryDB(BaseDB):
 
     def update_history(self, new_rate):
         data = self._load_data()
-        self._save_data(new_rate)
-        return True
+        data.append(new_rate)
+        self._save_data(data)

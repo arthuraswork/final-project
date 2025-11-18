@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from .parser import ParserCLI 
 import readline
-from valutatrade_hub.core.consts import VALUTAS
+from valutatrade_hub.infra.consts import VALUTAS
 from valutatrade_hub.core.exceptoins import CurrencyNotFoundError
 
 def enable_arrow_keys():

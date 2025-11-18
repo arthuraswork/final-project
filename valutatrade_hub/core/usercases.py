@@ -4,7 +4,7 @@ from valutatrade_hub.cli.interface import CLI
 from .models import User, Portfolio, Wallet
 from valutatrade_hub.infra.database import DatabaseManager
 from .utils_funcs import hashing, salt_generator, calculations, reversed_rate
-from .consts import DATE_FORMAT, BASE_CURRENCY, MIN_PASSWORD_VALUE
+from ..infra.consts import DATE_FORMAT, BASE_CURRENCY, MIN_PASSWORD_VALUE
 from .decorators import handler_log_feedback, handler_errors
 from .exceptoins import InsufficientFundsError, CurrencyNotFoundError
 
@@ -27,7 +27,7 @@ class UserCase:
             case 'buy'|'sell'|'balance'|'show-portfolio'|'change-password':
                 return self.check_is_logined(query)
             case 'exit':
-                return self.on_exit()
+                return 'exit'
             case 'get-rate'|'show-rate':
                 if query.get('cmd') == 'show-rate':
                     if query['args'].get('--top'):
@@ -196,8 +196,3 @@ class UserCase:
         else:
             return 'Rate not found'
         
-    def on_exit(self):
-        if self._is_logined:
-            exit(f'Bye bye, {self._session.get_user_info()["username"]}')
-        else:
-            exit('Bye bye')

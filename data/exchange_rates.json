@@ -1,0 +1,560 @@
+[
+  {
+    "USD_BTC": {
+      "rate": 91139,
+      "updated_at": "2025-11-18T11:59:26"
+    },
+    "USD_ETH": {
+      "rate": 3056.62,
+      "updated_at": "2025-11-18T11:59:26"
+    },
+    "USD_SOL": {
+      "rate": 137.59,
+      "updated_at": "2025-11-18T11:59:26"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T11:59:26"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T11:59:26"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T11:59:26"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T11:59:26"
+  },
+  {
+    "USD_BTC": {
+      "rate": 91139,
+      "updated_at": "2025-11-18T11:59:29"
+    },
+    "USD_ETH": {
+      "rate": 3056.62,
+      "updated_at": "2025-11-18T11:59:29"
+    },
+    "USD_SOL": {
+      "rate": 137.59,
+      "updated_at": "2025-11-18T11:59:29"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T11:59:29"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T11:59:29"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T11:59:29"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T11:59:29"
+  },
+  {
+    "USD_BTC": {
+      "rate": 91139,
+      "updated_at": "2025-11-18T11:59:36"
+    },
+    "USD_ETH": {
+      "rate": 3056.62,
+      "updated_at": "2025-11-18T11:59:36"
+    },
+    "USD_SOL": {
+      "rate": 137.59,
+      "updated_at": "2025-11-18T11:59:36"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T11:59:36"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T11:59:36"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T11:59:36"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T11:59:36"
+  },
+  {
+    "USD_BTC": {
+      "rate": 91139,
+      "updated_at": "2025-11-18T11:59:37"
+    },
+    "USD_ETH": {
+      "rate": 3056.62,
+      "updated_at": "2025-11-18T11:59:37"
+    },
+    "USD_SOL": {
+      "rate": 137.59,
+      "updated_at": "2025-11-18T11:59:37"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T11:59:37"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T11:59:37"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T11:59:37"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T11:59:37"
+  },
+  {
+    "USD_BTC": {
+      "rate": 91139,
+      "updated_at": "2025-11-18T11:59:38"
+    },
+    "USD_ETH": {
+      "rate": 3056.62,
+      "updated_at": "2025-11-18T11:59:38"
+    },
+    "USD_SOL": {
+      "rate": 137.59,
+      "updated_at": "2025-11-18T11:59:38"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T11:59:38"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T11:59:38"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T11:59:38"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T11:59:38"
+  },
+  {
+    "USD_BTC": {
+      "rate": 91134,
+      "updated_at": "2025-11-18T12:01:24"
+    },
+    "USD_ETH": {
+      "rate": 3059.34,
+      "updated_at": "2025-11-18T12:01:24"
+    },
+    "USD_SOL": {
+      "rate": 137.6,
+      "updated_at": "2025-11-18T12:01:24"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T12:01:24"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T12:01:24"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T12:01:24"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T12:01:24"
+  },
+  {
+    "USD_BTC": {
+      "rate": 91053,
+      "updated_at": "2025-11-18T12:13:58"
+    },
+    "USD_ETH": {
+      "rate": 3044.99,
+      "updated_at": "2025-11-18T12:13:58"
+    },
+    "USD_SOL": {
+      "rate": 137.02,
+      "updated_at": "2025-11-18T12:13:58"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T12:13:58"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T12:13:58"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T12:13:58"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T12:13:58"
+  },
+  {
+    "USD_BTC": {
+      "rate": 90932,
+      "updated_at": "2025-11-18T12:39:33"
+    },
+    "USD_ETH": {
+      "rate": 3032.78,
+      "updated_at": "2025-11-18T12:39:33"
+    },
+    "USD_SOL": {
+      "rate": 136.89,
+      "updated_at": "2025-11-18T12:39:33"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T12:39:33"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T12:39:33"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T12:39:33"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T12:39:33"
+  },
+  {
+    "USD_BTC": {
+      "rate": 90932,
+      "updated_at": "2025-11-18T12:39:56"
+    },
+    "USD_ETH": {
+      "rate": 3032.78,
+      "updated_at": "2025-11-18T12:39:56"
+    },
+    "USD_SOL": {
+      "rate": 136.89,
+      "updated_at": "2025-11-18T12:39:56"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T12:39:56"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T12:39:56"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T12:39:56"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T12:39:56"
+  },
+  {
+    "USD_BTC": {
+      "rate": 90973,
+      "updated_at": "2025-11-18T12:40:38"
+    },
+    "USD_ETH": {
+      "rate": 3034.15,
+      "updated_at": "2025-11-18T12:40:38"
+    },
+    "USD_SOL": {
+      "rate": 136.92,
+      "updated_at": "2025-11-18T12:40:38"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T12:40:38"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T12:40:38"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T12:40:38"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T12:40:38"
+  },
+  {
+    "USD_BTC": {
+      "rate": 90973,
+      "updated_at": "2025-11-18T12:40:59"
+    },
+    "USD_ETH": {
+      "rate": 3034.15,
+      "updated_at": "2025-11-18T12:40:59"
+    },
+    "USD_SOL": {
+      "rate": 136.92,
+      "updated_at": "2025-11-18T12:40:59"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T12:40:59"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T12:40:59"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T12:40:59"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T12:40:59"
+  },
+  {
+    "USD_BTC": {
+      "rate": 90985,
+      "updated_at": "2025-11-18T12:43:45"
+    },
+    "USD_ETH": {
+      "rate": 3035.54,
+      "updated_at": "2025-11-18T12:43:45"
+    },
+    "USD_SOL": {
+      "rate": 136.98,
+      "updated_at": "2025-11-18T12:43:45"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T12:43:45"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T12:43:45"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T12:43:45"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T12:43:45"
+  },
+  {
+    "USD_BTC": {
+      "rate": 91031,
+      "updated_at": "2025-11-18T12:45:05"
+    },
+    "USD_ETH": {
+      "rate": 3039.38,
+      "updated_at": "2025-11-18T12:45:05"
+    },
+    "USD_SOL": {
+      "rate": 137.05,
+      "updated_at": "2025-11-18T12:45:05"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T12:45:05"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T12:45:05"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T12:45:05"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T12:45:05"
+  },
+  {
+    "USD_BTC": {
+      "rate": 91061,
+      "updated_at": "2025-11-18T12:46:56"
+    },
+    "USD_ETH": {
+      "rate": 3042.37,
+      "updated_at": "2025-11-18T12:46:56"
+    },
+    "USD_SOL": {
+      "rate": 137.13,
+      "updated_at": "2025-11-18T12:46:56"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T12:46:56"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T12:46:56"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T12:46:56"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T12:46:56"
+  },
+  {
+    "USD_BTC": {
+      "rate": 91113,
+      "updated_at": "2025-11-18T12:48:24"
+    },
+    "USD_ETH": {
+      "rate": 3043.45,
+      "updated_at": "2025-11-18T12:48:24"
+    },
+    "USD_SOL": {
+      "rate": 137.21,
+      "updated_at": "2025-11-18T12:48:24"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T12:48:24"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T12:48:24"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T12:48:24"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T12:48:24"
+  },
+  {
+    "USD_BTC": {
+      "rate": 91158,
+      "updated_at": "2025-11-18T12:56:05"
+    },
+    "USD_ETH": {
+      "rate": 3052.04,
+      "updated_at": "2025-11-18T12:56:05"
+    },
+    "USD_SOL": {
+      "rate": 137.59,
+      "updated_at": "2025-11-18T12:56:05"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T12:56:05"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T12:56:05"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T12:56:05"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T12:56:05"
+  },
+  {
+    "USD_BTC": {
+      "rate": 91261,
+      "updated_at": "2025-11-18T12:58:48"
+    },
+    "USD_ETH": {
+      "rate": 3053.68,
+      "updated_at": "2025-11-18T12:58:48"
+    },
+    "USD_SOL": {
+      "rate": 137.71,
+      "updated_at": "2025-11-18T12:58:48"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T12:58:48"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T12:58:48"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T12:58:48"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T12:58:48"
+  },
+  {
+    "USD_BTC": {
+      "rate": 91311,
+      "updated_at": "2025-11-18T12:59:50"
+    },
+    "USD_ETH": {
+      "rate": 3056.06,
+      "updated_at": "2025-11-18T12:59:50"
+    },
+    "USD_SOL": {
+      "rate": 137.71,
+      "updated_at": "2025-11-18T12:59:50"
+    },
+    "USD_EUR": {
+      "rate": 0.8625,
+      "updated_at": "2025-11-18T12:59:50"
+    },
+    "USD_GBP": {
+      "rate": 0.7598,
+      "updated_at": "2025-11-18T12:59:50"
+    },
+    "USD_RUB": {
+      "rate": 81.1919,
+      "updated_at": "2025-11-18T12:59:50"
+    },
+    "sources": {
+      "crypto_rates": "https://api.coingecko.com/api/v3",
+      "fiat_rates": "https://v6.exchangerate-api.com/v6"
+    },
+    "timestamp": "2025-11-18T12:59:50"
+  }
+]

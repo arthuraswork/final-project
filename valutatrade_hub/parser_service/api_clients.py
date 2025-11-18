@@ -1,7 +1,6 @@
 from .config import ParserConfig
 import requests
 from dataclasses import dataclass
-from valutatrade_hub.core.decorators import handler_api_errors
 
 @dataclass
 class BaseAPI:
@@ -25,8 +24,7 @@ class CoinGeckoClient(BaseAPI):
             f"{self.config.COINGECKO_URL}/simple/price",
             params={
                 'ids': ','.join(self.config.CRYPTO_ID_MAP.values()),
-                'vs_currencies': self.config.BASE_CURRENCY,
-                'x_cg_demo_api_key': self.config.COIN_GECKO_API_KEY  
+                'vs_currencies': self.config.BASE_CURRENCY, 
             }
         )
         return response.json()
