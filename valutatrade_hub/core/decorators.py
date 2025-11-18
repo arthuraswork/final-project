@@ -2,7 +2,7 @@ def handler_log_action(func):
     def wrapper(*args,**kwargs):
         result =  func(*args,**kwargs)
         if result:
-            print(f'command: {result.get('cmd')}')
+            print(f'command: {result.get("cmd")}')
         return result 
     return wrapper
 

@@ -190,6 +190,6 @@ class UserCase:
         
     def on_exit(self):
         if self._is_logined:
-            exit(f'Bye bye, {self._session.get_user_info()['username']}')
+            exit(f'Bye bye, {self._session.get_user_info()["username"]}')
         else:
             exit('Bye bye')
