@@ -36,6 +36,8 @@ def handler_api_errors(func):
             log.info('Starting rates update...')
             return func(*args, **kwargs) 
         except Exception as e:
+            if e == 'conversion_rates':
+                log.alert('Set env var EXCHENGE_API_KEY')
+                return None
             log.alert(f'Error in {func.__name__}: {e}')
-            return None
     return wrapper
