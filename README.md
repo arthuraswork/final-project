@@ -43,7 +43,7 @@ ValutaTrade Hub - это симулятор торговой платформы 
 1. Клонируйте репозиторий:
 ```bash
 git clone <repository-url>
-cd valutatrade_hub
+cd final-project
 ```
 
 2. Установите зависимости через Poetry:
@@ -86,8 +86,8 @@ sell --currency <currency> --amount <amount>
 #### Просмотр информации:
 ```bash
 show-portfolio
-get-rate --from <currency> --to <currency>
-show-rate --top true/false
+get-rate --from <currency> --to <currency> #валюта0 -> валюта1
+show-rate --top true/false #сортировка валют
 ```
 
 #### Системные команды:
@@ -171,16 +171,7 @@ valutatrade_hub/
 - Пароли хешируются с использованием SHA-256 и соли
 - Изоляция пользовательских данных
 
-## Установка
-
-Перед установкой, убедитесь, что у вас установлен менеджер зависиостей поэтри и make
-```bash
-git clone https://github.com/arthuraswork/final-project #установка 
-cd final-project 
-poetry install #установка запвисимостей
-export EXCHANGERATE_API_KEY='your_key' #добавление свого апи в окружение
-poetry run project
- ```
+## Демонстрация
 
 [![asciicast]( https://asciinema.org/a/Zq1agv7OHQ0YBPfM1bxeOqkgo.svg)]( https://asciinema.org/a/Zq1agv7OHQ0YBPfM1bxeOqkgo)
 
