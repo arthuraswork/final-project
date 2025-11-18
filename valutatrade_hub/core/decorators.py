@@ -2,6 +2,7 @@ from valutatrade_hub.infra.logger import log
 
 
 def handler_log_action(func):
+    """отлов и лог словарей результирующих функций"""
     def wrapper(*args,**kwargs):
         result =  func(*args,**kwargs)
         if result:
@@ -10,6 +11,7 @@ def handler_log_action(func):
     return wrapper
 
 def handler_errors(func):
+    """обработка ошибок"""
     def wrapper(*args,**kwargs):
         try:
             result = func(*args,**kwargs)
@@ -20,6 +22,7 @@ def handler_errors(func):
 
 
 def handler_log_feedback(func):
+    """отлов и лог результатов любых функций"""
     def wrapper(*args,**kwargs):
         result =  func(*args,**kwargs)
         if result:

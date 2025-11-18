@@ -20,6 +20,10 @@ class RatesUpdater:
 
     @handler_api_errors
     def update(self):
+        """
+        входная функция -> если удачно собраны данные,
+        перезаписываем в дата.рейтес + дозапись в историю
+        """
         coingecko_rate = self.coingecko_api.get()
         exchange_rate  = self.exchange_api.get()
         if coingecko_rate and exchange_rate:
@@ -32,6 +36,10 @@ class RatesUpdater:
         return False
 
     def parse(self,response_coingecko:dict, response_exchangerate:dict):
+        """
+        парсинг
+        """
+
         dt = datetime.now().strftime(DATE_FORMAT)
         coingecko_return = {
             f'{self.config.REVERSED_CRYPTO_ID_MAP[k]}_{self.config.BASE_CURRENCY}':{
@@ -53,9 +61,15 @@ class RatesUpdater:
         return final_dict
 
     def save_rates(self, rates):
+        """
+        сохранение актуальных курсов
+        """
         self.db.rates.update(rates)
         self.save_to_history(rates)
 
     def save_to_history(self,rates):
+        """
+        запись курса в историю
+        """
         self.historydb.history.update_history(rates)
 

@@ -14,6 +14,9 @@ from .utils_funcs import calculations, hashing, reversed_rate, salt_generator
 
 @dataclass
 class UserCase:
+    """
+    класс с бизнеслогикой - объединяет модели, работу с бд и обрабатывает cli
+    """
     cli = CLI()
     db = DatabaseManager()
     _is_logined: bool = False   
@@ -22,6 +25,9 @@ class UserCase:
     @handler_log_feedback
     @handler_errors
     def user_request(self):
+        """
+        вторичная обработка запросов пользователя
+        """
         query = self.cli.input()
         match query.get('cmd'):
             case 'register':
@@ -42,20 +48,34 @@ class UserCase:
         return 'unknown command, please try again'
     
     def on_show_rate(self, query):
+        """
+        выводит отсортированные валюты 
+        """
         order = True if query['args']['--top'] == 'true' else False
         return self.db.rates.get_all(order)
     
     def on_change_password(self, query):
+        """
+        меняет пароль
+        """
         new_password = query['args'].get('--password')
+        if len(new_password) < MIN_PASSWORD_VALUE:
+            return 'New password is too short'
         hashed_new_password, salt = hashing(
                                 new_password,salt_generator(), 
                                             return_salt=True
                                             )
-        self._session.change_password(new_password=hashed_new_password, new_salt =salt)
-        return self.commit_changes_user_data()
+        if self._session.change_password(new_password=hashed_new_password, new_salt =salt):
+            return self.commit_changes_user_data()
+
         
             
     def on_register(self, query):
+        """
+        регистрирует, на вход юзернейм и пароль ->
+        проверка коллизий по юзернейму ->
+        одобавление модели и в бд
+        """
         user_name = query['args'].get('--username')
         password = query['args'].get('--password')
         if len(password) <= MIN_PASSWORD_VALUE:
@@ -77,6 +97,10 @@ class UserCase:
             return f'User: {user_name} already exists, choice another name'
     
     def on_login(self, query):
+        """
+        проверяет правильность пароля пользователя
+        если да, начало сессии
+        """
         user_name, password = query['args'].values() 
         self._is_logined = self.db.users.check_password(
             user_name=user_name, password=password
@@ -105,6 +129,9 @@ class UserCase:
             return 'Username or password are uncorrect'
 
     def check_is_logined(self,query):
+        """
+        проверка сессии для персольных запросов
+        """
         if self._is_logined and self._session:
             match query['cmd']:
                 case 'buy':
@@ -117,8 +144,15 @@ class UserCase:
                     return self.on_change_password(query)
         else:
             return 'First login with useername and password'
-    @handler_errors        
+   
     def on_buy(self, query):
+        """
+        логика покупки + расчеты + проверки
+        на вход данные о валюте ->
+        подсчет стоимости ->
+        изменение в модели
+        коммит или откат модели и бд
+        """
         target_currency = query['args'].get('--currency')
         amount = float(query['args'].get('--amount'))
         rate = self.db.rates.currency_rate(
@@ -146,6 +180,9 @@ class UserCase:
         raise InsufficientFundsError()
     
     def commit_changes_user_data(self) -> str:
+        """
+        коммит бд с юзерами 
+        """
         user_data = self._session.get_user_info()
         old_data = self.db.users.data
         data = old_data.copy()
@@ -161,6 +198,9 @@ class UserCase:
             log.alert(f"DB error: {e}, changes not saved")
 
     def commit_changes_portfolio(self, new_portfolio_value):
+        """
+        коммит бд с портфолио
+        """
         user_id = self._session.get_user_info()['user_id']
         old_data = self.db.portfolio.data
         data = old_data.copy()
@@ -176,11 +216,17 @@ class UserCase:
             log.alert(f"DB error: {e}, changes not saved")
         
     def backup_portfolio(self):
+        """
+        бэкап портфолио при ошибке записи
+        """
         old_data = self.db.portfolio.data
         self.db.portfolio.update(old_data)
                     
-    @handler_errors
+
     def on_sell(self, query):
+        """
+        логика продажи
+        """
         target_currency = query['args'].get('--currency')
         amount = float(query['args'].get('--amount'))
 
@@ -209,6 +255,9 @@ class UserCase:
         raise InsufficientFundsError()
         
     def on_portfolio(self):
+        """
+        выдает инфу о портфеле + общий баланс
+        """
         if self.portfolio:
             total_value = self.portfolio.get_total_value(
                 self.db.rates.data,BASE_CURRENCY
@@ -220,6 +269,11 @@ class UserCase:
         return 'Portfolio not found, please call to our support'
         
     def on_get_rates(self,query):
+        """
+        дает информацию о курсах валют
+        на вход валюта 1 => валюта два
+        на выход курс + обратный курс
+        """
         fromto = query['args']['--from'] + '_' + query['args']['--to']
         tofrom = query['args']['--to'] + '_' + query['args']['--from'] 
         rate = self.db.rates.currency_rate(fromto=fromto,tofrom=tofrom)

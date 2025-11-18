@@ -1,8 +1,8 @@
 import readline
 from dataclasses import dataclass
-
+from valutatrade_hub.infra.logger import log
 from valutatrade_hub.core.exceptoins import CurrencyNotFoundError
-from valutatrade_hub.infra.consts import VALUTAS
+from valutatrade_hub.infra.consts import VALUTAS, HELP_COMMANDS
 
 from .parser import ParserCLI
 
@@ -47,6 +47,10 @@ class CLI:
             case 'show-portfolio':
                 return result
             case 'exit':
+                return result
+            
+            case 'help':
+                log.show('\n;'.join(HELP_COMMANDS))
                 return result
             
             case 'update-rates':

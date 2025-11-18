@@ -7,6 +7,9 @@ from .config import ParserConfig
 
 @dataclass
 class BaseAPI:
+    """
+    базовый апи класс
+    """
     
     config = ParserConfig()
 
@@ -21,6 +24,9 @@ class BaseAPI:
 
 @dataclass
 class CoinGeckoClient(BaseAPI):
+    """
+    реализация для криптоапи
+    """
     
     def request(self):
         response = requests.get(
@@ -34,7 +40,9 @@ class CoinGeckoClient(BaseAPI):
 
 @dataclass
 class ExchangeRateClient(BaseAPI):
-    
+    """
+    реализация для фиата
+    """
     def request(self):
         response = requests.get(
             f"{self.config.EXCHANGERATE_API_URL}/{self.config.EXCHENGE_API_KEY}/latest/{self.config.BASE_CURRENCY}"

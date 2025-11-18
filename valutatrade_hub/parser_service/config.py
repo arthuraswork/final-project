@@ -2,7 +2,9 @@ import os
 
 
 class ParserConfig:
-    
+    """
+    конфиг данных для работы апи
+    """
     def __init__(self):
         self.EXCHENGE_API_KEY = os.getenv('EXCHANGERATE_API_KEY')
 

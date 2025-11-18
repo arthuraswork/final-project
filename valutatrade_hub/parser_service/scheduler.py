@@ -6,6 +6,11 @@ from .config import ParserConfig
 
 
 class Scheduler:
+    """
+    планнировщих обновлений курсов - 
+    проверяет каждый цикл если
+    время прошло - абдейт
+    """
     def __init__(self):
         self.init_time = datetime.now()
         self.config = ParserConfig()

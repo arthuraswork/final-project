@@ -3,14 +3,24 @@ from valutatrade_hub.infra.consts import TokenArgs, TokenCmdType
 
 
 class ParserCLI:
+    """
+    парсер cli
+    """
     @handler_log_action
     def run(self, input: str):
+        """
+        входная функция
+        """
         try:
             return self.parse(input)
         except Exception as e:
             return {'cmd':'exception', 'exception': e}
 
     def parse(self, input: str):
+        """
+        парсит комманды и аргументы - что то не то, улетаем
+        в ошибку(это фича)
+        """
         tokenized = input.split()
         args: dict = {}
         command_type: str = tokenized[0] if tokenized[0] in [
