@@ -1,11 +1,14 @@
 from valutatrade_hub.core.usercases import UserCase
 from dataclasses import dataclass
+from valutatrade_hub.parser_service.api_clients import ParserAPI
 
 @dataclass
 class Program:
     user_case = UserCase() 
     def event_loop(self):
+        api = ParserAPI()
         while True:
+            api.get()
             self.user_case.user_request()
             
 def main():

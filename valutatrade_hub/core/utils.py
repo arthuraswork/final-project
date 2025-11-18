@@ -73,6 +73,9 @@ class RatesDB(BaseDB):
         else:
             return {}
 
+    def update_history():
+        ...
+    
 @dataclass
 class UsersDB(BaseDB):
     path = 'users.json' 
@@ -107,11 +110,11 @@ class UsersDB(BaseDB):
         for user in data:
             if  user['username'] == user_name:
                 return user 
-        
-        
             
-@dataclass
-class WalkerJSON:
-    portfolio = PortfoliosDB()
-    rates = RatesDB()
-    users = UsersDB()   
+class RatesHistoryDB(BaseDB):
+    path = 'exchange_rates.json'
+
+    def update_history(self, new_rate):
+        data = self._load_data()
+        self._save_data(new_rate)
+        return True

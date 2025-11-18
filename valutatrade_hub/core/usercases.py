@@ -2,17 +2,16 @@ from dataclasses import dataclass
 from datetime import datetime
 from valutatrade_hub.cli.interface import CLI
 from .models import User, Portfolio, Wallet
-from .utils import WalkerJSON
+from valutatrade_hub.infra.database import DatabaseManager
 from .utils_funcs import hashing, salt_generator, calculations, reversed_rate
 from .consts import DATE_FORMAT, BASE_CURRENCY, MIN_PASSWORD_VALUE
 from .decorators import handler_log_feedback, handler_errors
 from .exceptoins import InsufficientFundsError, CurrencyNotFoundError
-import copy
 
 @dataclass
 class UserCase:
     cli = CLI()
-    db = WalkerJSON()
+    db = DatabaseManager()
     _is_logined: bool = False   
     _session: User | None = None    
     portfolio: Portfolio | None = None

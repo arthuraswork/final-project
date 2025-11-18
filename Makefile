@@ -2,7 +2,7 @@ install:
 	poetry install
 
 project:
-	poetry run main
+	poetry run project
 
 build:
 	poetry build

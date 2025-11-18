@@ -21,17 +21,13 @@ class TokenArgs(Enum):
     
 
 VALUTAS = {
-    ('usd', 'USD', 'доллар', 'доллары', 'долларов', '$'): 'USD',
-    ('eur', 'EUR', 'евро', '€'): 'EUR', 
-    ('rub', 'RUB', 'рубль', 'рубли', 'рублей', '₽'): 'RUB',
-    ('btc', 'BTC', 'биткоин', 'биткойн'): 'BTC',
-    ('eth', 'ETH', 'эфир', 'эфириум'): 'ETH',
-    ('gbp', 'GBP', 'фунт', 'фунты'): 'GBP',
-    ('jpy', 'JPY', 'иена', 'иены', '¥'): 'JPY',
-    ('cny', 'CNY', 'юань', 'юани'): 'CNY',
-    ('sol', 'SOL', 'солана'): 'SOL',
-    ('bnb', 'BNB', 'бинанс'): 'BNB',
-    ('ada', 'ADA', 'кардано'): 'ADA'
+    ('usd', 'USD', '$'): 'USD',
+    ('eur', 'EUR', 'EURO', 'euro', '€'): 'EUR', 
+    ('rub', 'RUB', '₽'): 'RUB',
+    ('btc', 'BTC', 'bitcoin'): 'BTC',
+    ('eth', 'ETH', ): 'ETH',
+    ('gbr','GBR','pound'): 'GBR',
+    ('sol', 'SOL'): 'SOL',
 }
 
 SALT_CHARSET = ['a','!','}','$','+','?','c','Q','>','x','G']
