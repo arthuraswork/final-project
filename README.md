@@ -86,8 +86,8 @@ sell --currency <currency> --amount <amount>
 #### Просмотр информации:
 ```bash
 show-portfolio
-get-rate --from <currency> --to <currency>
-show-rate --top true/false
+get-rate --from <currency> --to <currency> #валюта0 -> валюта1
+show-rate --top true/false #сортировка валют
 ```
 
 #### Системные команды:
