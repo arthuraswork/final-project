@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from valutatrade_hub.core.decorators import handler_api_errors
+from valutatrade_hub.infra.decorators import handler_api_errors
 from valutatrade_hub.infra.consts import DATE_FORMAT
 from valutatrade_hub.infra.database import DatabaseManager
 from valutatrade_hub.infra.logger import log

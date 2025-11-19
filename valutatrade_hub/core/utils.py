@@ -1,7 +1,7 @@
 import json
 from dataclasses import dataclass
 
-from .decorators import handler_errors
+from ..infra.decorators import handler_errors
 from .utils_funcs import hashing, reversed_rate
 
 

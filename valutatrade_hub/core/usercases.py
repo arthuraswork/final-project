@@ -6,7 +6,7 @@ from valutatrade_hub.infra.database import DatabaseManager
 from valutatrade_hub.infra.logger import log
 
 from ..infra.consts import BASE_CURRENCY, DATE_FORMAT, MIN_PASSWORD_VALUE
-from .decorators import handler_errors, handler_log_feedback
+from ..infra.decorators import handler_errors, handler_log_feedback
 from .exceptoins import InsufficientFundsError
 from .models import Portfolio, User, Wallet
 from .utils_funcs import calculations, hashing, reversed_rate, salt_generator
