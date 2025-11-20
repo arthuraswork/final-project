@@ -2,8 +2,8 @@
   {
     "user_id": 0,
     "username": "alice",
-    "hashed_password": "b4282bbd04622a09e361791b309435314b1fb38c8aa980be686faf93da8b5bf6",
-    "salt": "!>a>Q>c>c>x",
+    "hashed_password": "a607b42c5f8a5546c10afeba9ad6606f1e4a86f185d5ca85b0c7a1950a6997b1",
+    "salt": "?xGxax$x!x$",
     "registration_date": "2025-11-15T17:07:10"
   },
   {
@@ -26,5 +26,19 @@
     "hashed_password": "8d4aa01d71ad2390ce93ec7f798479b7752af9ad78ab5297ad31e59374edc6c4",
     "salt": "}QQQGQ}QaQ>",
     "registration_date": "2025-11-18T15:38:58"
+  },
+  {
+    "user_id": 4,
+    "username": "user",
+    "hashed_password": "ff376b16adb52e1c0378ab3528070f8c1aaadc88408c7a709d80302aeceb4d2a",
+    "salt": "a$c$a$a$c$c",
+    "registration_date": "2025-11-21T01:35:36"
+  },
+  {
+    "user_id": 5,
+    "username": "x",
+    "hashed_password": "656427e4b9fc07a5803456af116a67fa16c7253e4b4eccb6e88b874640fe1b5f",
+    "salt": "cGQG+GGG+Gx",
+    "registration_date": "2025-11-21T01:41:09"
   }
 ]

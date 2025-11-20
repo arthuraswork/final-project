@@ -1,8 +1,9 @@
 import readline
 from dataclasses import dataclass
-from valutatrade_hub.infra.logger import log
+
 from valutatrade_hub.core.exceptoins import CurrencyNotFoundError
-from valutatrade_hub.infra.consts import VALUTAS, HELP_COMMANDS
+from valutatrade_hub.infra.consts import HELP_COMMANDS, VALUTAS
+from valutatrade_hub.infra.logger import log
 
 from .parser import ParserCLI
 

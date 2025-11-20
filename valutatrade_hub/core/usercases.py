@@ -65,7 +65,8 @@ class UserCase:
                                 new_password,salt_generator(), 
                                             return_salt=True
                                             )
-        if self._session.change_password(new_password=hashed_new_password, new_salt =salt):
+        if self._session.change_password(new_password=hashed_new_password,
+                                         new_salt =salt):
             return self.commit_changes_user_data()
 
         
@@ -265,6 +266,7 @@ class UserCase:
             log.show('\nYour portfolio:\n' +
                      ';\n'.join(self.portfolio.get_wallets()) +
                      f'\nTotal value: {total_value} {BASE_CURRENCY}')
+            return 0
             
         return 'Portfolio not found, please call to our support'
         

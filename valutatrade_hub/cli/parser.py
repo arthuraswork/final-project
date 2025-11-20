@@ -1,5 +1,5 @@
-from valutatrade_hub.infra.decorators import handler_log_action
 from valutatrade_hub.infra.consts import TokenArgs, TokenCmdType
+from valutatrade_hub.infra.decorators import handler_log_action
 
 
 class ParserCLI:
