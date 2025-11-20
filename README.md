@@ -173,5 +173,5 @@ valutatrade_hub/
 
 ## Демонстрация
 
-[![asciicast]( https://asciinema.org/a/Zq1agv7OHQ0YBPfM1bxeOqkgo.svg)]( https://asciinema.org/a/Zq1agv7OHQ0YBPfM1bxeOqkgo)
+[![asciicast]( https://asciinema.org/a/gXrMz6CEy5TrinUGRvg1mffih.svg)]( https://asciinema.org/a/gXrMz6CEy5TrinUGRvg1mffih)
 

@@ -51,7 +51,7 @@ class CLI:
                 return result
             
             case 'help':
-                log.show(';\n'.join(HELP_COMMANDS))
+                log.show('\n'.join(HELP_COMMANDS))
                 return result
             
             case 'update-rates':

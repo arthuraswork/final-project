@@ -3,7 +3,7 @@
     "user_id": 0,
     "wallets": {
       "USD": {
-        "balance": 3294.5289960768964
+        "balance": 6184.628996076896
       },
       "BTC": {
         "balance": 1
@@ -12,7 +12,7 @@
         "balance": 56.0
       },
       "ETH": {
-        "balance": 9.0
+        "balance": 8.0
       },
       "RUB": {
         "balance": 3800.0
@@ -53,6 +53,14 @@
   },
   {
     "user_id": 5,
+    "wallets": {
+      "USD": {
+        "balance": 0.0
+      }
+    }
+  },
+  {
+    "user_id": 6,
     "wallets": {
       "USD": {
         "balance": 0.0
