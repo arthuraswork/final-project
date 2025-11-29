@@ -18,53 +18,5 @@
         "balance": 3800.0
       }
     }
-  },
-  {
-    "user_id": 1,
-    "wallets": {
-      "USD": {
-        "balance": 0.0
-      }
-    }
-  },
-  {
-    "user_id": 2,
-    "wallets": {
-      "USD": {
-        "balance": 0.0
-      }
-    }
-  },
-  {
-    "user_id": 3,
-    "wallets": {
-      "USD": {
-        "balance": 0.0
-      }
-    }
-  },
-  {
-    "user_id": 4,
-    "wallets": {
-      "USD": {
-        "balance": 0.0
-      }
-    }
-  },
-  {
-    "user_id": 5,
-    "wallets": {
-      "USD": {
-        "balance": 0.0
-      }
-    }
-  },
-  {
-    "user_id": 6,
-    "wallets": {
-      "USD": {
-        "balance": 0.0
-      }
-    }
   }
 ]
