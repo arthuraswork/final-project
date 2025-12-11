@@ -9,7 +9,16 @@ __pycache__/
 
 *.so
 
+# Ruff кэш
+.ruff_cache/
+.ruff_cache
+ruff_cache/
 
+# Ruff Database (если есть)
+.ruff.db
+
+# Ruff индекс (если используется)
+.ruff-index/
 .Python
 build/
 develop-eggs/
